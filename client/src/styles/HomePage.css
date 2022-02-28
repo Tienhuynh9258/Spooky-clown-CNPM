@@ -1,0 +1,95 @@
+.home-page section {
+    min-height: 100vh;
+    padding: 10px 10%;
+    padding-top: 85px;
+}
+
+.home-page .heading {
+    text-align: center;
+    font-size: 40px;
+    padding: 5px;
+    color: #333;
+}
+
+.home-page .heading span {
+    color: var(--yellow);
+}
+
+/* media queries  */
+
+@media (max-width: 991px) {
+    .home-page {
+        font-size: 55%;
+    }
+
+    .home::before,
+    .home::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-page header #menu-bar {
+        display: block;
+    }
+
+    .home-page header .navbar {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--yellow);
+        border-top: 2 solid rgba(0, 0, 0, 0.1);
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    }
+
+    .home-page header .navbar ul {
+        flex-flow: column;
+        padding: 20px;
+    }
+
+    .home-page header .navbar ul li {
+        margin: 15px;
+        width: 100%;
+    }
+
+    .home-page header .navbar ul li a {
+        display: block;
+        color: #fff;
+        padding-left: 20px;
+        border-left: 2px solid #fff;
+        font-size: 20px;
+    }
+
+    .home-page header .navbar ul li a:hover,
+    .home-page header .navbar ul li a.active {
+        color: #333;
+        border-color: #333;
+    }
+
+    .home-page header .navbar.nav-toggle {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    .home-page .home .content {
+        text-align: center;
+    }
+
+    .home-page .home .content h3 {
+        font-size: 45px;
+    }
+
+    .home-page .order .row .image {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .home-page section {
+        padding: 10px 5%;
+        padding-top: 85px;
+    }
+}
