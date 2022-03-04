@@ -1,5 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
+import { Link} from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -8,7 +9,7 @@ import {
   ListItem,
   Button,
 } from "@material-ui/core";
-
+import smart from '../assets/img/smart.jpg'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -66,22 +67,22 @@ export default function Signin() {
 
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         <img
-          src="https://st.quantrimang.com/photos/image/2019/04/24/multiplebackground-1.jpg"
+          src={smart}
           style={{ height: "100%", width: "100%" }}
         ></img>
       </Grid>
       <Grid
         item
-        xs={6}
+        xs={5}
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Card style={{ padding: "35px 47px", height: "547px", width: "488px" }}>
+        <Card style={{ padding: "35px 47px", height: "580px", width: "488px" }}>
           <Typography className={classes.text20}>
             Let's become one of us{" "}
           </Typography>
@@ -89,15 +90,19 @@ export default function Signin() {
           <form>
             <label className={classes.label}>Username</label>
             <br></br>
-            <input type="text" className={classes.input}></input>
+            <input type="text" className={classes.input} placeholder = "Username"></input>
+            <br></br>
+            <label className={classes.label}>Email</label>
+            <br></br>
+            <input type="email" className={classes.input} placeholder = "Email"></input>
             <br></br>
             <label className={classes.label}>Password</label>
             <br></br>
-            <input type="password" className={classes.input}></input>
+            <input type="password" className={classes.input} placeholder = "Password"></input>
             <br></br>
             <label className={classes.label}>Confirm Password</label>
             <br></br>
-            <input type="password" className={classes.input}></input>
+            <input type="password" className={classes.input} placeholder = "Repassword"></input>
             <br></br>
           </form>
           <List>
@@ -110,7 +115,7 @@ export default function Signin() {
                 color="primary"
                 style={{ marginLeft: "auto" }}
               >
-                Sign In
+                <Link to="/login">Sign In</Link>
               </Button>
             </ListItem>
           </List>

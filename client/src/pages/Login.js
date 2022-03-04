@@ -1,5 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
+import { Link} from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -8,7 +9,7 @@ import {
   ListItem,
   Button,
 } from "@material-ui/core";
-import smart from '../assets/img/smart.png'
+import smart from '../assets/img/smart.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,15 +68,15 @@ export default function Login() {
 
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         <img
-          src="https://st.quantrimang.com/photos/image/2019/04/24/multiplebackground-1.jpg"
+          src={smart}
           style={{ height: "100%", width: "100%" }}
         ></img>
       </Grid>
       <Grid
         item
-        xs={6}
+        xs={5}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -105,7 +106,7 @@ export default function Login() {
                 color="primary"
                 style={{ marginLeft: "auto" }}
               >
-                Sign Up
+                <Link to="/register">Sign Up</Link>
               </Button>
             </ListItem>
           </List>
