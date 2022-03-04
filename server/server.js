@@ -15,7 +15,6 @@ app.use(
     extended: true,
   })
 );
-app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('API Running'));

@@ -1,41 +1,41 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import logo from '../assets/img/logo.png';
 import '../styles/Register.css';
 
-import { loginUser } from '../redux/auth/authSlice';
+// import { loginUser } from '../redux/auth/authSlice';
 
 const Login = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  //Mấy cái cmt này là dự án cũ á, ông nào làm login có thể tham khảo :v
+  // const history = useHistory();
+  // const dispatch = useDispatch();
+  // const { isAuthenticated } = useSelector((state) => state.auth);
 
   // const fakeLogin = () => {
   //   localStorage.setItem('token_CNPM', 'token')
   //   history.push('/')
   // }
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: '',
+  // });
 
-  const { email, password } = formData;
+  // const { email, password } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  // const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser({ email, password }));
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(loginUser({ email, password }));
+  // };
 
-  if (isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <>
-      <div id="register_bg"></div>
+      {/* <div id="register_bg"></div>
       <div id="register">
         <figure>
           <Link href="/">
@@ -73,7 +73,7 @@ const Login = () => {
             </small>
           </div>
         </form>
-      </div>
+      </div> */}
     </>
   );
 };

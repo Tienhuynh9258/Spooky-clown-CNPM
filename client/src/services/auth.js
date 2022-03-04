@@ -7,11 +7,11 @@ const config = {
   },
 };
 
-export const AuthAPI = {
-  loadUser: () => axios.get(`${API_SERVER_URL}/api/auth`),
+// export const AuthAPI = {
+//   loadUser: () => axios.get(`${API_SERVER_URL}/api/auth`),
 
-  registerUser: (data) => axios.post(`${API_SERVER_URL}/api/users`, data, config),
+//   registerUser: (data) => axios.post(`${API_SERVER_URL}/api/users`, data, config),
 
-  loginUser: (data) => axios.post(`${API_SERVER_URL}/api/auth`, data, config),
+//   loginUser: (data) => axios.post(`${API_SERVER_URL}/api/auth`, data, config),
   
-};
+// };

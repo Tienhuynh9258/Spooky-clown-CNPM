@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import store from './redux/store';
-import { HomePage, Register, Login, Feedback, ReportPage, PaymentPage, ConfirmPage, ListfoodPage } from './pages';
+import { HomePage, Register, Login} from './pages';
 import PrivateRoute from './PrivateRoute';
 import ScrollToTop from './components/ScrollTop';
-import { utils } from './helpers';
-import { loadUser } from './redux/auth/authSlice';
+// import { utils } from './helpers';
+// import { loadUser } from './redux/auth/authSlice';
 
 // const { setAuthToken } = utils;
 

@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../assets/img/logo.png';
+// import logo from '../assets/img/logo.png';
 import '../styles/Register.css';
 
-import { registerUser } from '../redux/auth/authSlice';
+// import { registerUser } from '../redux/auth/authSlice';
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
+  // const { isAuthenticated } = useSelector((state) => state.auth);
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   password: '',
+  // });
 
-  const { firstName, lastName, email, password } = formData;
+  // const { firstName, lastName, email, password } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  // const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = () => {
-    dispatch(registerUser({ firstName, lastName, email, password }));
-  };
+  // const handleSubmit = () => {
+  //   dispatch(registerUser({ firstName, lastName, email, password }));
+  // };
 
-  if (isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <>
-      <div id="register_bg"></div>
+      {/* <div id="register_bg"></div>
       <div id="register">
         <figure>
           <Link to="/">
@@ -76,7 +76,7 @@ const Register = () => {
             </small>
           </div>
         </form>
-      </div>
+      </div> */}
     </>
   );
 };
