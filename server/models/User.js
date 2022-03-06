@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+  username: {
     type: String,
     required: true,
   },
@@ -18,14 +14,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role: {
+  avatar_img: {
     type: String,
-    required: true,
-    default: 'user',
-  },
-  date: {
-    type: Date,
-    default: Date.now,
+    default:"",
   },
 });
 

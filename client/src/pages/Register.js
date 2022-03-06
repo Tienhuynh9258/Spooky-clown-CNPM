@@ -1,6 +1,8 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
-import { Link} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { registerUser,checkRegister } from '../redux/auth/authSlice';
 import {
   Grid,
   Card,
@@ -59,11 +61,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signin() {
+export default function Register() {
   const classes = useStyles();
   const theme = useTheme();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  
+  const dispatch = useDispatch();
+  const { isAuthenticated,errorRegister } = useSelector((state) => state.auth);
+   
+  const [errorpass,setError]=useState("");
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    repassword:'',
+  });
+
+  const { username, email, password, repassword } = formData;
+  const onChange = (e) => setFormData(
+   { ...formData, [e.target.name]: e.target.value }
+    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // if(password!==repassword){ 
+    //   setError("Not correct password!! Please try again." );
+    // }
+   
+      dispatch(checkRegister({username, email, password}))
+      dispatch(registerUser({ username, email, password}));
+      if(password!==repassword){ 
+        setError("Not correct password!! Please try again." );
+      }
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
@@ -82,7 +114,7 @@ export default function Signin() {
           alignItems: "center",
         }}
       >
-        <Card style={{ padding: "35px 47px", height: "580px", width: "488px" }}>
+        <Card style={{ padding: "35px 47px", height: "620px", width: "488px" }}>
           <Typography className={classes.text20}>
             Let's become one of us{" "}
           </Typography>
@@ -90,24 +122,24 @@ export default function Signin() {
           <form>
             <label className={classes.label}>Username</label>
             <br></br>
-            <input type="text" className={classes.input} placeholder = "Username"></input>
-            <br></br>
+            <input type="text" className={classes.input} name="username" placeholder = "Username" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorRegister.userError}</p>
             <label className={classes.label}>Email</label>
             <br></br>
-            <input type="email" className={classes.input} placeholder = "Email"></input>
-            <br></br>
+            <input type="email" className={classes.input} name="email" placeholder = "Email" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorRegister.emailError}</p>
             <label className={classes.label}>Password</label>
             <br></br>
-            <input type="password" className={classes.input} placeholder = "Password"></input>
-            <br></br>
+            <input type="password" className={classes.input} name="password" placeholder = "Password" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorRegister.passError}</p>
             <label className={classes.label}>Confirm Password</label>
             <br></br>
-            <input type="password" className={classes.input} placeholder = "Repassword"></input>
-            <br></br>
+            <input type="password" className={classes.input} name="repassword" placeholder = "Repassword" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorpass}</p>
           </form>
           <List>
             <ListItem>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={handleSubmit}>
                 Sign up
               </Button>
               <Button

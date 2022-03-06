@@ -1,39 +1,68 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import { AuthAPI } from '../../services/auth';
-// import { utils } from '../../helpers';
+import { AuthAPI } from '../../services/auth';
+import { utils } from '../../helpers';
 
-// const { setAuthToken } = utils;
+const { setAuthToken } = utils;
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
   user: null,
+  errorLogin:{
+    userError:'',
+    passError:'',
+  },
+  errorRegister:{
+    userError:'',
+    emailError:'',
+    passError:'',
+  }
 };
 
-// export const loadUser = createAsyncThunk('auth/loadUser', async () => {
-//   if (localStorage.token) {
-//     setAuthToken(localStorage.token);
-//   }
+export const loadUser = createAsyncThunk('auth/loadUser', async () => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
 
-//   const res = await AuthAPI.loadUser();
-//   console.log('user: ', res.data);
-//   return res.data;
-// });
+  const res = await AuthAPI.loadUser();
+  console.log('user: ', res.data);
+  return res.data;
+});
 
-// export const registerUser = createAsyncThunk('auth/registerUser', async ({ firstName, lastName, email, password }) => {
-//   const res = await AuthAPI.registerUser({ firstName, lastName, email, password });
+export const registerUser = createAsyncThunk('auth/registerUser', async ({ username, email, password }) => {
 
-//   console.log(res.data);
-//   return res.data;
-// });
+  const res = await AuthAPI.registerUser({ username, email, password });
 
-// export const loginUser = createAsyncThunk('auth/loginUser', async ({ email, password }) => {
-//   const res = await AuthAPI.loginUser({ email, password });
+  console.log(res.data);
+  return res.data;
+});
 
-//   console.log(res.data);
-//   return res.data;
-// });
+export const loginUser = createAsyncThunk('auth/loginUser', async ({ username, password }) => {
+  
+  const res = await AuthAPI.loginUser({ username, password });
+  console.log(res.data)
+  return res.data;
+});
+
+export const checkLogin = createAsyncThunk('auth/checkLogin', async ({ username, password }) => {
+  
+  const res = await AuthAPI.checkLogin({ username, password });
+  if(username===''){res.data.userError='Can not empty this field!!.'}
+  if(password===''){res.data.passError='Can not empty this field!!.'}
+  console.log(res.data)
+  return res.data;
+});
+
+export const checkRegister = createAsyncThunk('auth/checkRegister', async ({ username,email, password }) => {
+  
+  const res = await AuthAPI.checkRegister({ username,email, password });
+  if(username===''){res.data.userError='Can not empty this field!!.'}
+  if(email===''){res.data.emailError='Can not empty this field!!.'}
+  if(password===''){res.data.passError='Can not empty this field!!.'}
+  console.log(res.data)
+  return res.data;
+});
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -52,37 +81,49 @@ export const authSlice = createSlice({
         token: null,
         isAuthenticated: false,
         loading: false,
+        errorLogin:{
+          userError:'',
+          passError:'',
+        },
       };
     },
   },
 
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(loadUser.fulfilled, (state, action) => ({
-  //       ...state,
-  //       isAuthenticated: true,
-  //       loading: false,
-  //       user: action.payload,
-  //     }))
-  //     .addCase(registerUser.fulfilled, (state, action) => {
-  //       localStorage.setItem('token', action.payload.token);
-  //       return {
-  //         ...state,
-  //         token: action.payload.token,
-  //         isAuthenticated: true,
-  //         loading: false,
-  //       };
-  //     })
-  //     .addCase(loginUser.fulfilled, (state, action) => {
-  //       localStorage.setItem('token', action.payload.token);
-  //       return {
-  //         ...state,
-  //         token: action.payload.token,
-  //         isAuthenticated: true,
-  //         loading: false,
-  //       };
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadUser.fulfilled, (state, action) => ({
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      }))
+      .addCase(checkLogin.fulfilled, (state, action) => ({
+        ...state,
+        errorLogin:action.payload,
+      }))
+      .addCase(checkRegister.fulfilled, (state, action) => ({
+        ...state,
+        errorRegister:action.payload,
+      }))
+      .addCase(registerUser.fulfilled, (state, action) => {
+        localStorage.setItem('token', action.payload.token);
+        return {
+          ...state,
+          token: action.payload.token,
+          isAuthenticated: true,
+          loading: false,
+        };
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        localStorage.setItem('token', action.payload.token);
+        return {
+          ...state,
+          token: action.payload.token,
+          isAuthenticated: true,
+          loading: false,
+        };
+      });
+  },
 });
 
 export const authActions = authSlice.actions;

@@ -1,6 +1,8 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
-import { Link} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link,Redirect} from 'react-router-dom';
+import { loginUser,checkLogin } from '../redux/auth/authSlice';
 import {
   Grid,
   Card,
@@ -63,9 +65,23 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
   const theme = useTheme();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const { isAuthenticated,errorLogin } = useSelector((state) => state.auth);
+  const [formData, setFormData]=useState({username:'',password:'',})
+  const {username, password}=formData;
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(checkLogin({username,password}))
+    dispatch(loginUser({ username, password }));
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
       <Grid item xs={7}>
@@ -89,16 +105,18 @@ export default function Login() {
           <form>
             <label className={classes.label}>Username</label>
             <br></br>
-            <input type="text" className={classes.input} placeholder = "Username"></input>
-            <br></br>
+            <input type="text" className={classes.input} name="username" placeholder = "Username" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorLogin.userError}</p>
+            {/* <br></br> */}
             <label className={classes.label}>Password</label>
             <br></br>
-            <input type="password" className={classes.input} placeholder ="Password"></input>
-            <br></br>
+            <input type="password" className={classes.input} name="password" placeholder ="Password" onChange={onChange}></input>
+            <p className="fst-italic text-danger">{errorLogin.passError}</p>
           </form>
           <List>
             <ListItem>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" type="submit"
+              onClick={handleSubmit}>
                 Sign in
               </Button>
               <Button
