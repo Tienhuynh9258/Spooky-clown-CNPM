@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import store from './redux/store';
-import { HomePage, Register, Login} from './pages';
-import PrivateRoute from './PrivateRoute';
-import ScrollToTop from './components/ScrollTop';
+import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import store from "./redux/store";
+import { HomePage, Register, Login } from "./pages";
+import PrivateRoute from "./PrivateRoute";
+import ScrollToTop from "./components/ScrollTop";
+import Temperature from "./components/Enviroment/Temperature";
 // import { utils } from './helpers';
 // import { loadUser } from './redux/auth/authSlice';
 
