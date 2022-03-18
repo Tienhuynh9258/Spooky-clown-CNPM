@@ -51,7 +51,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <li>
             <p className="text-lg font-bold">Thao tác</p>
             <a
-              href="/"
+              href="/control"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <svg
@@ -132,7 +132,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </li>
           <li>
             <Link
-              to="light"
+              to="/light"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <svg
