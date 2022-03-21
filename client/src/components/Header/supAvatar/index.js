@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import Avatar from './Avatar';
-import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '../../../redux/auth/authSlice';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { authActions } from '../../../redux/auth/authSlice';
 import defaultPlaceholder from "./static/assets/upload_icon.png"
 
 export default class AvatarUploader extends Component {
