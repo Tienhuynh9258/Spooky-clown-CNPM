@@ -1,29 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Transition from "../../../utils/Transition";
-
-import UserAvatar from "../../../assets/img/user-avatar-32.png";
-
+import { useDispatch, useSelector } from 'react-redux';
+import ana_avatar from "../../../assets/img/avatar_1.png"
+import { authActions } from '../../../redux/auth/authSlice';
 function UserMenu() {
+  const dispatch = useDispatch();
+  const { user,isAuthenticated } = useSelector((state) => state.auth);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const trigger = useRef(null);
   const dropdown = useRef(null);
-
   // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
+  // useEffect(() => {
+  //   const clickHandler = ({ target }) => {
+  //     if (
+  //       !dropdownOpen 
+  //       ||
+  //       dropdown.current.contains(target) ||
+  //       trigger.current.contains(target)
+  //     )
+  //       return;
+  //     setDropdownOpen(false);
+  //   };
+  //   document.addEventListener("click", clickHandler);
+  //   return () => document.removeEventListener("click", clickHandler);
+  // });
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -34,7 +35,6 @@ function UserMenu() {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
-
   return (
     <div className="relative inline-flex">
       <button
@@ -46,14 +46,14 @@ function UserMenu() {
       >
         <img
           className="w-8 h-8 rounded-full"
-          src={UserAvatar}
+          src={isAuthenticated&&user?(user.avatar_img!=''?user.avatar_img:ana_avatar):ana_avatar}
           width="32"
           height="32"
           alt="User"
         />
         <div className="flex items-center truncate">
           <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">
-            Acme Inc.
+          { isAuthenticated? user.username : 'Anonymous'} 
           </span>
           <svg
             className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
@@ -80,15 +80,15 @@ function UserMenu() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div className="font-medium text-slate-800">Acme Inc.</div>
-            <div className="text-xs text-slate-500 italic">Administrator</div>
+            <div className="font-medium text-slate-800">Smart garden</div>
+            <div className="text-xs text-slate-500 italic">User</div>
           </div>
           <ul>
             <li>
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
                 to="/"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+               onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Settings
               </Link>
@@ -97,7 +97,8 @@ function UserMenu() {
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
                 to="/"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                // onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() => dispatch(authActions.logout())}
               >
                 Sign Out
               </Link>

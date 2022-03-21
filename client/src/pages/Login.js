@@ -80,7 +80,7 @@ export default function Login() {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/control" />;
   }
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>

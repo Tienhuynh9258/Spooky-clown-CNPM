@@ -1,48 +1,67 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-
+import ana_avatar from "../../assets/img/avatar_1.png"
+import logo from "../../assets/img/logo.png"
 import SidebarLinkGroup from "./SidebarLinkGroup";
-
+import {render} from 'react-dom';
+import AvatarUploader from './supAvatar';
+import { useDispatch, useSelector } from 'react-redux';
+import store from "../../redux/store";
+import { loadUser } from "../../redux/auth/authSlice";
+import { authActions } from '../../redux/auth/authSlice';
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const dispatch = useDispatch();
+  useEffect(() => store.dispatch(loadUser()), []);
+  const { user,isAuthenticated } = useSelector((state) => state.auth);
   return (
     <aside class="w-64 border-r-2	" aria-label="Sidebar">
       <div class="overflow-y-auto h-screen py-4 px-3  rounded dark:bg-gray-800">
         <ul class="space-y-2">
           <li>
-            <a
-              href="/"
-              class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <svg
-                class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-              </svg>
-              <span className="ml-3 font-extrabold text-2xl	">
-                Smart Gardent
-              </span>
+            <a href="/">
+              <img src={logo}
+                style={{marginLeft:'60px'}}
+                alt=""
+                width="80"
+                height="60" />
             </a>
+            <span className="ml-3 font-extrabold text-2xl	" style={{color:"#7DB500"}}>
+                <span style={{color:'#5A8200'}}>Smart </span>
+                Gardent
+              </span>
+              <br/>
+              <hr
+        style={{
+            marginTop:'15px',
+            color: 'lightgray',
+            height: 5
+        }}
+    />
           </li>
           <li>
             <figure class="md:flex items-center	">
-              <img
-                class="w-16 h-16 rounded-full"
-                src="https://api.lorem.space/image/face?hash=28212g"
-                alt=""
-                width="384"
-                height="512"
+              <AvatarUploader class="w-16 h-16 rounded-full"
+              size={70}
+              uploadURL="http://127.0.0.1:5000/api/auth/upload"
+              // fileType={ ("image/png") || ("image/jpg") }
+              name={isAuthenticated && user? user.username : 'Anonymous'}
+              customHeaders={{'Content-Type': 'application/json'}}
+              defaultImg={(user)?((user.avatar_img!='')?user.avatar_img:ana_avatar):ana_avatar}
+              // onFinished={(false,()=>{dispatch(authActions.changeImage(user.avatar_img))})}
+              onFinished={(false,()=>{
+                setTimeout(() => {
+                  window.location.reload(false);
+                }, 3000)
+                // dispatch(authActions.changeImage(user.avatar_img)),
+                })}
               />
-              <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+              <div class="pt-6 md:p-6 text-center md:text-left space-y-4">
                 <figcaption class="font-medium">
                   <div class="text-sky-500 dark:text-sky-400 font-bold">
-                    Sarah Dayan
+                     { isAuthenticated && user? user.username : 'Anonymous'} 
                   </div>
                   <div class="text-slate-700 dark:text-slate-500">
-                    Staff@gmail.com
+                  { isAuthenticated && user? user.email : 'UnknownEmail'} 
                   </div>
                 </figcaption>
               </div>

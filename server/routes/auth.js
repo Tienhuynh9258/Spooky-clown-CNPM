@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { check } = require('express-validator');
 
-const { getAuthUser, loginUser,checkLogin } = require('../controllers/auth');
+const { getAuthUser, loginUser,checkLogin ,uploadAvatar} = require('../controllers/auth');
 
 // @route     GET api/auth
 // @desc      Get auth user
@@ -19,5 +19,9 @@ router.post(
   [check('username', 'Username is required').not().isEmpty(), check('password', 'Password is required').exists()],
   loginUser
 );
-
+router.post(
+  '/upload',
+  [check('username', 'Username is required').not().isEmpty()],
+  uploadAvatar
+);
 module.exports = router;
