@@ -5,3 +5,4 @@ const auth = require('../middleware/auth');
 
 router.post('/',auth, getData);
 module.exports = router;
+

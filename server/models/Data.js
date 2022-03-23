@@ -12,6 +12,7 @@ const DataSchema = new mongoose.Schema({
   time: {
     type: Date,
     required: true,
+    default : Date.now,
   },
 });
 
