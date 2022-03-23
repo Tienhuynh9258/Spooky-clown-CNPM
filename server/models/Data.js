@@ -4,7 +4,6 @@ const DataSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    ref:'device',
   },
   value: {
     type: String,

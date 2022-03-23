@@ -16,7 +16,7 @@ function Temperature() {
   const [increment, setIncrement] = useState(0);
   const [range, setRange] = useState(35);
 
-  // Dummy data to be looped
+  // Dummy data to be looped 
   const data = [
     57.81, 57.75, 55.48, 54.28, 53.14, 52.25, 51.04, 52.49, 55.49, 56.87, 53.73,
     56.42, 58.06, 55.62, 58.16, 55.22, 58.67, 60.18, 61.31, 63.25, 65.91, 64.44,
