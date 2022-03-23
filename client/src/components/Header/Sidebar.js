@@ -27,7 +27,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </a>
             <span className="ml-3 font-extrabold text-2xl	" style={{color:"#7DB500"}}>
                 <span style={{color:'#5A8200'}}>Smart </span>
-                Gardent
+                Garden
               </span>
               <br/>
               <hr
