@@ -1,11 +1,27 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import "../../styles/Home.css";
 import axios from 'axios';
+function changeLevel(name,level){
+  setTimeout(() => {
+    axios
+    .post('http://127.0.0.1:5000/api/device/setLevel', {name:name,level:level}, {headers: {'Content-Type': 'application/json',},})
+    .then((res) => {
+      console.log("Success change")
+    })
+    .catch((err) => {
+      alert(err);
+    })
+  }, 1000)
+}
 function Home(props) {
   const [data_soil,set_Soil]=useState("");
   const [data_temp,set_Temp]=useState("");
   const [data_sound,set_Sound]=useState("");
   const [data_light,set_Light]=useState("");
+  const editSoil=useRef()
+  const editTemp=useRef()
+  const editSound=useRef()
+  const edtiLight=useRef()
   useEffect(()=>axios
   .post('http://127.0.0.1:5000/api/device', {name:"soil_sensor"}, {headers: {'Content-Type': 'application/json',},})
   .then((res) => {
@@ -33,8 +49,7 @@ function Home(props) {
           <p className="h-32 flex-1 border-2  text-center">
             <span className="block py-6">ẨM ĐẤT</span>
             <span className="font-bold">
-              {/* <input value={data_soil.level}></input> */}
-              {data_soil.level}
+              <input ref={editSoil} className="font-bold"  type="text" value={data_soil.level}  style={{width:"25px"}} onChange={()=>{changeLevel("soil_sensor",editSoil.current.value);set_Soil(editSoil.current.value)}}/>
             %</span>
           </p>
         </div>
@@ -48,7 +63,9 @@ function Home(props) {
           </p>
           <p className="h-32 flex-1 border-2 text-center">
             <span className="block py-6">NHIỆT ĐỘ</span>
-            <span className="font-bold">{data_temp.level}°C</span>
+            <span className="font-bold">
+            <input ref={editTemp} className="font-bold"  type="text" value={data_temp.level}  style={{width:"18px"}} onChange={()=>{changeLevel("temp_sensor",editTemp.current.value);set_Temp(editTemp.current.value)}}/>
+            °C</span>
           </p>
         </div>
         <div className="w-44 h-32 flex">
@@ -61,7 +78,9 @@ function Home(props) {
           </p>
           <p className="h-32 flex-1 border-2 text-center">
             <span className="block py-6">ÂM LƯỢNG</span>
-            <span className="font-bold">{data_sound.level}DBA</span>
+            <span className="font-bold">
+            <input ref={editSound} className="font-bold"  type="text" value={data_sound.level}  style={{width:"18px"}} onChange={()=>{changeLevel("sound_sensor",editSound.current.value);set_Sound(editSound.current.value)}}/>
+            DBA</span>
           </p>
         </div>
         <div className="w-44 h-32 flex">
@@ -74,7 +93,9 @@ function Home(props) {
           </p>
           <p className="h-32 flex-1 border-2 text-center">
             <span className="block py-6">ÁNH SÁNG</span>
-            <span className="font-bold">{data_light.level}Lux</span>
+            <span className="font-bold">
+            <input ref={edtiLight} className="font-bold"  type="text" value={data_light.level}  style={{width:"25px"}} onChange={()=>{changeLevel("light_sensor",edtiLight.current.value);set_Light(edtiLight.current.value)}}/>
+            Lux</span>
           </p>
         </div>
       </div>
