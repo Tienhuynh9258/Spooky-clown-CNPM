@@ -13,7 +13,7 @@ function ControlDevice(props) {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main style={{paddingLeft:"10px"}}>
+        <main style={{paddingLeft:"20px"}}>
           <Home/>
         </main>
         <Footer />
