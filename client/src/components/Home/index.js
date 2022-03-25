@@ -8,6 +8,7 @@ const devices = [
 ];
 function Home(props) {
   const [auto, setAuto] = useState(false);
+  const [state, setState] = useState(true);
   return (
     <div className="">
       <h1 className="font-bold text-xl text-violet-600">Mức cho phép</h1>
@@ -124,7 +125,11 @@ function Home(props) {
                         {item.name}
                       </td>
                       <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                        {item.state === "active" ? "Đang bật" : "Đang tắt"}
+                        {item.state === "active" ? (
+                          "Đang bật"
+                        ) : (
+                          <p class="text-red-500">Đang tắt</p>
+                        )}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {auto === false ? (
@@ -132,21 +137,24 @@ function Home(props) {
                             Tự động
                           </button>
                         ) : (
-                          <label
-                            for="check"
-                            class="bg-gray-100 cursor-pointer relative w-20 h-10 rounded-full"
-                            onClick={() => console.log(item.id)}
-                          >
-                            <input
-                              type="checkbox"
-                              id="check"
-                              class="sr-only peer"
-                            />
-                            <span
-                              class="w-2/5 h-4/5 bg-red-500 absolute rounded-full left-1 top-1 peer-checked:bg-green-300 peer-checked:left-11
-                        transition-all duration-500"
-                            ></span>
-                          </label>
+                          <div className="">
+                            <label htmlFor="toggle-switch">
+                              <input
+                                type="checkbox"
+                                id="toggle-switch"
+                                className="cursor-pointer h-10 w-20 rounded-full appearance-none bg-red-500 bg-opacity-4 border-2 border-gray-500 checked:bg-neon transiton duration-200 relative"
+                                onClick={() => {
+                                  if (item.state === "active") {
+                                    item.state = "disabled";
+                                  } else {
+                                    item.state = "active";
+                                  }
+
+                                  setState(!state);
+                                }}
+                              />
+                            </label>
+                          </div>
                         )}
                       </td>
                     </tr>

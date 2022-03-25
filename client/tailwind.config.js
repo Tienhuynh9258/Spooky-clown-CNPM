@@ -49,10 +49,15 @@ module.exports = {
       zIndex: {
         60: "60",
       },
+      backgroundColor: (theme) => ({
+        neon: "#18BE0A",
+      }),
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["checked"],
+    },
   },
   plugins: [],
 };
