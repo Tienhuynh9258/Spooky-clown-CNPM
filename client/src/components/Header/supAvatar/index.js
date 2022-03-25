@@ -110,6 +110,6 @@ AvatarUploader.defaultProps = {
     disabled: false,
     placeholder: defaultPlaceholder,
     withCredentials: false,
-    fileType: "image/jpeg",
+    // fileType: "image/jpeg",
     size: 150
 };

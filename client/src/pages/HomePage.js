@@ -8,16 +8,18 @@ import {
   Datepicker,
 } from "../components";
 import { Link} from 'react-router-dom';
+import logo from '../assets/img/logo.png'
 function HomePage(props) {
   return (
     <>
       <body
         class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover "
         style={{
-          backgroundImage: `url('https://source.unsplash.com/1L71sPT5XKc')`,
+          backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://assets-news.housing.com/news/wp-content/uploads/2021/03/26204019/What-is-smart-gardening-FB-1200x700-compressed.jpg')`,
+          opacity:0.75
         }}
       >
-        <header className="p-4  dark:text-coolGray-100 bg-white opacity-50">
+        <header className="p-3 dark:text-coolGray-100 bg-white" style={{padding: '0px 1.5rem'}}>
           <div className="container flex justify-between h-16 mx-auto">
             <a
               rel="noopener noreferrer"
@@ -25,15 +27,7 @@ function HomePage(props) {
               aria-label="Back to homepage"
               className="flex items-center p-2"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 32 32"
-                className="w-8 h-8 dark:text-violet-400"
-              >
-                <path d="M27.912 7.289l-10.324-5.961c-0.455-0.268-1.002-0.425-1.588-0.425s-1.133 0.158-1.604 0.433l0.015-0.008-10.324 5.961c-0.955 0.561-1.586 1.582-1.588 2.75v11.922c0.002 1.168 0.635 2.189 1.574 2.742l0.016 0.008 10.322 5.961c0.455 0.267 1.004 0.425 1.59 0.425 0.584 0 1.131-0.158 1.602-0.433l-0.014 0.008 10.322-5.961c0.955-0.561 1.586-1.582 1.588-2.75v-11.922c-0.002-1.168-0.633-2.189-1.573-2.742zM27.383 21.961c0 0.389-0.211 0.73-0.526 0.914l-0.004 0.002-10.324 5.961c-0.152 0.088-0.334 0.142-0.53 0.142s-0.377-0.053-0.535-0.145l0.005 0.002-10.324-5.961c-0.319-0.186-0.529-0.527-0.529-0.916v-11.922c0-0.389 0.211-0.73 0.526-0.914l0.004-0.002 10.324-5.961c0.152-0.090 0.334-0.143 0.53-0.143s0.377 0.053 0.535 0.144l-0.006-0.002 10.324 5.961c0.319 0.185 0.529 0.527 0.529 0.916z"></path>
-                <path d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z"></path>
-              </svg>
+              <img src={logo} width="100" />
             </a>
             <ul className="items-stretch hidden space-x-3 lg:flex">
               <li className="flex">
@@ -66,7 +60,7 @@ function HomePage(props) {
               
             </ul>
             <div className="items-center flex-shrink-0 hidden lg:flex">
-            <Link to="/login"><button className="self-center px-8 py-3 rounded">Sign in</button></Link>
+            <Link to="/login"><button className="self-center font-semibold px-8 py-3 rounded">Sign in</button></Link>
             <Link to="/register"><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900">
                 Sign up
               </button></Link>
@@ -92,7 +86,7 @@ function HomePage(props) {
         <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0 mt-5">
           <div
             id="profile"
-            class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0"
+            class="w-full  rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white  mx-6 lg:mx-0"
           >
             <div class="p-4 md:p-12 text-center lg:text-left">
               <div
@@ -102,8 +96,8 @@ function HomePage(props) {
                 }}
               ></div>
 
-              <h1 class="text-3xl font-bold pt-8 lg:pt-0">ten nhom</h1>
-              <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+              <h1 class="text-3xl font-bold pt-8 lg:pt-0">Spooky Clown Team</h1>
+              <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 "></div>
               <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
                 <svg
                   class="h-4 fill-current text-green-700 pr-4"
@@ -125,7 +119,7 @@ function HomePage(props) {
                 Your Location - BK University
               </p>
               <p class="pt-8 text-sm">
-                mo ta ve do an
+                This is the web that allowing users could watch and adjust the IOT devices
               </p>
 
               <div class="pt-12 pb-8">
@@ -216,12 +210,12 @@ function HomePage(props) {
             </div>
           </div>
 
-          <div class="w-full lg:w-2/5">
+          {/* <div class="w-full lg:w-2/5">
             <img
               src="https://source.unsplash.com/MP0IUfwrn0A"
               class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
             />
-          </div>
+          </div> */}
 
           <div class="absolute top-0 right-0 h-12 w-18 p-4">
             <button class="js-change-theme focus:outline-none">🌙</button>

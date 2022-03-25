@@ -9,8 +9,8 @@ function Header({ sidebarOpen, setSidebarOpen }) {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 bg-white border-b border-slate-200 z-30">
-      <div className="px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 bg-white border-b border-slate-200 z-30" >
+      <div className="px-4 sm:px-6 lg:px-8" style={{backgroundColor:"#f3f6f4"}}>
         <div className="flex items-center justify-between h-16 -mb-px">
           {/* Header: Left side */}
           <div className="flex">
@@ -35,7 +35,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
           </div>
 
           {/* Header: Right side */}
-          <div className="flex items-center">
+          <div className="flex items-center" >
             <button
               className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ml-3 ${
                 searchModalOpen && "bg-slate-200"
