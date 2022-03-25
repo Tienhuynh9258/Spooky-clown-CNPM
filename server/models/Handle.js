@@ -11,4 +11,4 @@ const HandleSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Handle = mongoose.model('handle', HandleSchema);
+module.exports = Handle = mongoose.model('handles', HandleSchema);
