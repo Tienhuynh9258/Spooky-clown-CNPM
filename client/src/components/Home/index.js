@@ -37,9 +37,9 @@ function Home(props) {
   return (
     <div className="">
       <h1 className="font-bold text-xl text-violet-600" style={{ marginTop: "10px",color:"#875AB2" }}>Mức cho phép</h1>
-      <div className="grid grid-cols-4 gap-4 mt-6">
-        <div className="w-44 h-32 flex">
-          <p className="h-32 flex-1" style={{ backgroundColor: "#5048E5" }}>
+      <div className="grid grid-cols-4 gap-4 mt-6" style={{marginLeft:"50px"}}>
+        <div className="w-44 h-32 flex" >
+          <p className="h-32 flex-1" style={{ backgroundColor: "#5048E5"}}>
             <img
               className="mx-auto"
               style={{ marginTop: "50%" }}
