@@ -13,6 +13,8 @@ function changeLevel(name,level){
     })
   }, 1000)
 }
+
+
 function Home(props) {
   const [data_soil,set_Soil]=useState("");
   const [data_temp,set_Temp]=useState("");
@@ -22,7 +24,10 @@ function Home(props) {
   const editTemp=useRef()
   const editSound=useRef()
   const edtiLight=useRef()
-  useEffect(()=>axios
+  const [auto, setAuto] = useState(0);
+  
+  // const [state, setState] = useState(true);
+  useEffect(()=>{axios
   .post('http://127.0.0.1:5000/api/device', {name:"soil_sensor"}, {headers: {'Content-Type': 'application/json',},})
   .then((res) => {
     set_Soil(res.data[0]);
@@ -32,8 +37,23 @@ function Home(props) {
   })
   .catch((err) => {
     alert(err);
-  }),[])
-  
+  });
+  axios
+  .post('http://127.0.0.1:5000/api/handle', {}, {headers: {'Content-Type': 'application/json',},})
+  .then((res) => {
+    // console.log(res.data[0].status)
+    setAuto(res.data[0].status)
+  })
+  .catch((err) => {
+    alert(err);
+  })  
+ },[])
+  const devices = [
+    { id: 1, name: "Máy bơm", state: data_soil.status },
+    { id: 2, name: "Máy phun sương", state: data_temp.status },
+    { id: 3, name: "Máy quạt ", state: data_sound.status },
+    { id: 4, name: "Bóng đèn", state: data_light.status },
+  ];
   return (
     <div className="">
       <h1 className="font-bold text-xl text-violet-600" style={{ marginTop: "10px",color:"#875AB2" }}>Mức cho phép</h1>
@@ -99,14 +119,30 @@ function Home(props) {
           </p>
         </div>
       </div>
-      <h1 className="font-bold text-xl text-violet-600 mt-11 mb-6" style={{ color:"#875AB2" }}>Chế độ</h1>
-      <div>
-        <button
-          className="hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          style={{ backgroundColor: "#5FD855" }}
-        >
-          THỦ CÔNG
-        </button>
+
+      <h1 className="font-bold text-xl text-violet-600 mt-11 mb-7" style={{ color:"#875AB2" }}>Chế độ</h1>
+      <div onClick={() => {axios
+  .post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
+  .then((res) => {
+    // console.log(res.data[0].status)
+    setAuto(!auto)
+  })
+  .catch((err) => {
+    alert(err);
+  }) }}>
+        {auto === 1 ? (
+          <button
+            className="hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            style={{ backgroundColor: "#5FD855" }}
+          >
+            THỦ CÔNG
+          </button>
+        ) : (
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+            TỰ ĐỘNG
+          </button>
+        )}
+
       </div>
       <h1 className="font-bold text-xl text-violet-600 my-8" style={{marginBottom:"0px",color:"#875AB2"}}>Các thiết bị</h1>
       <div class="flex flex-col">
@@ -143,134 +179,49 @@ function Home(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      1
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Máy bơm
-                    </td>
-                    {data_soil.status=="on"?
-                     <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang bật
-                      </td>:
-                      <td class="text-sm text-red-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang tắt
+                  {devices.map((item, index) => (
+                    <tr class="border-b">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {item.id}
                       </td>
-                    }
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <label
-                        for="check"
-                        class="bg-gray-100 cursor-pointer relative w-20 h-10 rounded-full"
-                      >
-                        <input
-                          type="checkbox"
-                          id="check"
-                          class="sr-only peer"
-                        />
-                        <span
-                          class="w-2/5 h-4/5 bg-red-500 absolute rounded-full left-1 top-1 peer-checked:bg-green-300 peer-checked:left-11
-                        transition-all duration-500"
-                        ></span>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr class="bg-white border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      2
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Máy phun sương
-                    </td>
-                    {data_temp.status=="on"?
-                     <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang bật
-                      </td>:
-                      <td class="text-sm text-red-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang tắt
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {item.name}
                       </td>
-                    }
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <label
-                        for="check"
-                        class="bg-gray-100 cursor-pointer relative w-20 h-10 rounded-full"
-                      >
-                        <input
-                          type="checkbox"
-                          id="check"
-                          class="sr-only peer"
-                        />
-                        <span
-                          class="w-2/5 h-4/5 bg-red-500 absolute rounded-full left-1 top-1 peer-checked:bg-green-300 peer-checked:left-11
-                        transition-all duration-500"
-                        ></span>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr class="bg-white border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      3
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Máy quạt
-                    </td>
-                    {data_sound.status=="on"?
-                     <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang bật
-                      </td>:
-                      <td class="text-sm text-red-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang tắt
+                      <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
+                        {item.state === "on" ? (
+                          "Đang bật"
+                        ) : (
+                          <p class="text-red-500">Đang tắt</p>
+                        )}
                       </td>
-                    }
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <label
-                        for="check"
-                        class="bg-gray-100 cursor-pointer relative w-20 h-10 rounded-full"
-                      >
-                        <input
-                          type="checkbox"
-                          id="check"
-                          class="sr-only peer"
-                        />
-                        <span
-                          class="w-2/5 h-4/5 bg-red-500 absolute rounded-full left-1 top-1 peer-checked:bg-green-300 peer-checked:left-11
-                        transition-all duration-500"
-                        ></span>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr class="bg-white border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      4
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Bóng đèn
-                    </td>
-                    {data_light.status=="on"?
-                     <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang bật
-                      </td>:
-                      <td class="text-sm text-red-500 font-light px-6 py-4 whitespace-nowrap">
-                      Đang tắt
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {auto === 0 ? (
+                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                            Tự động
+                          </button>
+                        ) : (
+                          <div className="">
+                            <label htmlFor="toggle-switch">
+                              <input
+                                type="checkbox"
+                                id="toggle-switch"
+                                className="cursor-pointer h-10 w-20 rounded-full appearance-none bg-red-500 bg-opacity-4 border-2 border-gray-500 checked:bg-neon transiton duration-200 relative"
+                                onClick={() => {
+                                  if (item.state === "on") {
+                                    item.state = "off";
+                                  } else {
+                                    item.state = "on";
+                                  }
+
+                                  // setState(!state);
+                                }}
+                              />
+                            </label>
+                          </div>
+                        )}
                       </td>
-                    }
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <label
-                        for="check"
-                        class="bg-gray-100 cursor-pointer relative w-20 h-10 rounded-full"
-                      >
-                        <input
-                          type="checkbox"
-                          id="check"
-                          class="sr-only peer"
-                        />
-                        <span
-                          class="w-2/5 h-4/5 bg-red-500 absolute rounded-full left-1 top-1 peer-checked:bg-green-300 peer-checked:left-11
-                        transition-all duration-500"
-                        ></span>
-                      </label>
-                    </td>
-                  </tr>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
