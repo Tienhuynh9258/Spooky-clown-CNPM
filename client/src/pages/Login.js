@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "12px",
     outline: "none",
     padding: "16px 12px",
-    border:"1px solid #5D5FEF",
+    border:"1px solid #55ca1e",
     boxShadow:"4px 4px 1px rgba(36,37,94,0.1) ",
   },
   label: {
@@ -115,14 +115,13 @@ export default function Login() {
           </form>
           <List>
             <ListItem>
-              <Button variant="contained" color="primary" type="submit"
+              <Button variant="contained" style={{backgroundColor:"#5eac3c"}} type="submit"
               onClick={handleSubmit}>
                 Sign in
               </Button>
               <Button
                 variant="contained"
-                color="primary"
-                style={{ marginLeft: "auto" }}
+                style={{ marginLeft: "auto",backgroundColor:"#5eac3c" }}
               >
                 <Link to="/register">Sign Up</Link>
               </Button>

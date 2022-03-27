@@ -35,6 +35,7 @@ exports.setDeviceLevel = async (req,res) =>{
 }
 
 exports.setDeviceStatus = async (req,res) =>{
+    // console.log(req.body)
     try {
         const name = req.body.name;
         console.log(name)
@@ -43,7 +44,7 @@ exports.setDeviceStatus = async (req,res) =>{
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/${name}/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_PVjW684hBoqCI5J7nxWu0jMxlPVo'
+                'X-AIO-Key':'aio_butg28r20itloOAcjkhu9yk5XHIB'
             }, 
             data: { 
                 value: req.body.value
