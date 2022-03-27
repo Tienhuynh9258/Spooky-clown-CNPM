@@ -34,14 +34,6 @@ function TempPage(props) {
     createData('Min value', 130),
     createData('Average value', 150),
   ];
-  useEffect(()=>axios
-  .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    alert(err);
-  }),[])
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -67,7 +59,6 @@ function TempPage(props) {
               </div>              
               <div style={{paddingLeft:"15px",height:"200px"}}>
                 <p className="font-bold py-2" style={{marginBottom:"15px"}}>Thời gian bật tắt dữ liệu</p>
-                {/* <Datepicker /> */}
                 <div style={{marginBottom:"15px"}}>
                 <LocalizationProvider dateAdapter={AdapterDateFns} >
                   <DateTimePicker 
@@ -76,6 +67,14 @@ function TempPage(props) {
                     value={valueStart}
                     onChange={(newValue) => {
                       setValueStart(newValue);
+                      axios
+                    .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    })
                     }}
                   />
                 </LocalizationProvider>
@@ -87,6 +86,14 @@ function TempPage(props) {
                     value={valueEnd}
                     onChange={(newValue) => {
                       setValueEnd(newValue);
+                      axios
+                    .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    })
                     }}
                   />
                 </LocalizationProvider>
@@ -116,7 +123,7 @@ function TempPage(props) {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+              </TableContainer>
     <p className="font-bold py-2" style={{marginLeft:"70px"}}> Bảng thống kê cho giá trị của sensor</p>
               </div>
             </div>

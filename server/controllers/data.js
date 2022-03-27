@@ -2,6 +2,7 @@ const Data = require('../models/Data');
 
 exports.getData = async (req,res) =>{
     try {
+        // console.log(req.body)
         const datadb = await Data.find({'name':req.body.name});
         if(!datadb) throw {message:'Lost database connection!'};
         var data = []; 
