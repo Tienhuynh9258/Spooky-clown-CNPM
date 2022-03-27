@@ -44,7 +44,7 @@ exports.setDeviceStatus = async (req,res) =>{
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/${name}/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_butg28r20itloOAcjkhu9yk5XHIB'
+                'X-AIO-Key':'aio_RBSR03QkOl6wy8QGrgE5Qr5FiS2q'
             }, 
             data: { 
                 value: req.body.value
