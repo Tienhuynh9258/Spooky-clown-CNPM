@@ -22,13 +22,14 @@ exports.setHandle = async (req,res) =>{
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/bbc-handle-button/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_PVjW684hBoqCI5J7nxWu0jMxlPVo'
+                'X-AIO-Key':'aio_butg28r20itloOAcjkhu9yk5XHIB'
             }, 
-            data: { 
-                value: req.body.status
-              }
+            data:{
+                value: req.body.status==true?'1':'0'
+            }
+            }).then((data)=>{
+                res.status(200).send(data.data.value);
             });
-            res.status(200).send('handle');
     } catch (err) {
         if(err.message ==='Invalid Date')
             res.status(400).send(err);

@@ -24,7 +24,7 @@ function Home(props) {
   const editTemp=useRef()
   const editSound=useRef()
   const edtiLight=useRef()
-  const [auto, setAuto] = useState(0);
+  const [auto, setAuto] = useState(false);
   
   // const [state, setState] = useState(true);
   useEffect(()=>{axios
@@ -41,8 +41,8 @@ function Home(props) {
   axios
   .post('http://127.0.0.1:5000/api/handle', {}, {headers: {'Content-Type': 'application/json',},})
   .then((res) => {
-    // console.log(res.data[0].status)
-    setAuto(res.data[0].status)
+    if (res.data[0].status==0) setAuto(false)
+    else setAuto(true)
   })
   .catch((err) => {
     alert(err);
@@ -124,13 +124,12 @@ function Home(props) {
       <div onClick={() => {axios
   .post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
   .then((res) => {
-    // console.log(res.data[0].status)
     setAuto(!auto)
   })
   .catch((err) => {
     alert(err);
   }) }}>
-        {auto === 1 ? (
+        {auto === true ? (
           <button
             className="hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             style={{ backgroundColor: "#5FD855" }}
@@ -195,22 +194,44 @@ function Home(props) {
                         )}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {auto === 0 ? (
+                        {auto === false ? (
                           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                             Tự động
                           </button>
                         ) : (
                           <div className="">
                             <label htmlFor="toggle-switch">
+                              
                               <input
                                 type="checkbox"
                                 id="toggle-switch"
                                 className="cursor-pointer h-10 w-20 rounded-full appearance-none bg-red-500 bg-opacity-4 border-2 border-gray-500 checked:bg-neon transiton duration-200 relative"
-                                onClick={() => {
+                                style={{backgroundColor:item.state==="on"?"#00f451":"red"}}
+                                onClick={(e) => {
                                   if (item.state === "on") {
                                     item.state = "off";
+                                    e.target.style.backgroundColor="red"
+                                    axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:item.id==1?"soil-moisture-sensor.bbc-button":item.id==2?"temp-sensor.bbc-button":item.id==3?"sound-sensor.bbc-button":"light-sensor.bbc-button",value:item.id==1?"0":item.id==2?"2":item.id==3?"4":"6"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                    console.log(res)
+                                    // setAuto(!auto)
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
                                   } else {
                                     item.state = "on";
+                                    e.target.style.backgroundColor="#00f451"
+                                    axios
+                                    .post('http://127.0.0.1:5000/api/device/setStatus', {name:item.id==1?"soil-moisture-sensor.bbc-button":item.id==2?"temp-sensor.bbc-button":item.id==3?"sound-sensor.bbc-button":"light-sensor.bbc-button",value:item.id==1?"1":item.id==2?"3":item.id==3?"5":"7"}, {headers: {'Content-Type': 'application/json',},})
+                                    .then((res) => {
+                                      // console.log(res.data[0].status)
+                                      // setAuto(!auto)
+                                    })
+                                    .catch((err) => {
+                                      alert(err);
+                                    })
                                   }
 
                                   // setState(!state);
