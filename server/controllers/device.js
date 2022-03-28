@@ -1,5 +1,6 @@
 const Device = require('../models/Device');
 const axios = require('axios');
+const jsons = require('../config/default');
 
 exports.getDevice = async (req,res) =>{
     try { 
@@ -44,13 +45,14 @@ exports.setDeviceStatus = async (req,res) =>{
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/${name}/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_rrXy75l52a7RgpyZyuCopmQ6G7iZ'
+                'X-AIO-Key':jsons.AIO_KEY
             }, 
             data: { 
                 value: req.body.value
               }
+            }).then((data)=>{
+                res.status(200).send(data.data.value);
             });
-            res.status(200).send(name);
     } catch (err) {
         if(err.message ==='Invalid Date')
             res.status(400).send(err);

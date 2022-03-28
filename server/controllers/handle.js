@@ -1,5 +1,6 @@
 const Handle = require('../models/Handle');
 const axios = require('axios');
+const jsons = require('../config/default');
 
 exports.getHandle = async (req,res) =>{
     try { 
@@ -17,12 +18,13 @@ exports.getHandle = async (req,res) =>{
 
 exports.setHandle = async (req,res) =>{
     try {   
+        console.log(req.body);
         await axios({
             method: 'post',
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/bbc-handle-button/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_rrXy75l52a7RgpyZyuCopmQ6G7iZ'
+                'X-AIO-Key':jsons.AIO_KEY
             }, 
             data:{
                 value: req.body.status==true?'1':'0'

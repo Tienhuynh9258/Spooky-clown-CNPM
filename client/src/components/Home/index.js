@@ -27,6 +27,17 @@ function Home(props) {
   const [auto, setAuto] = useState(false);
   
   // const [state, setState] = useState(true);
+  const controlhandle = async () => {
+    await axios.post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
+    .then((res) => {
+      if(res.data == 1 || res.data == 0)
+        setAuto(res.data)
+    })
+    .catch((err) => {
+      alert(err);
+    }) 
+  }
+
   useEffect(()=>{axios
   .post('http://127.0.0.1:5000/api/device', {name:"soil_sensor"}, {headers: {'Content-Type': 'application/json',},})
   .then((res) => {
@@ -121,14 +132,7 @@ function Home(props) {
       </div>
 
       <h1 className="font-bold text-xl text-violet-600 mt-11 mb-7" style={{ color:"#875AB2" }}>Chế độ</h1>
-      <div onClick={() => {axios
-  .post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
-  .then((res) => {
-    setAuto(!auto)
-  })
-  .catch((err) => {
-    alert(err);
-  }) }}>
+      <div onClick={controlhandle}>
         {auto === true ? (
           <button
             className="hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
