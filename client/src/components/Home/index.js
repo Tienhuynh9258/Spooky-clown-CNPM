@@ -31,7 +31,7 @@ function Home(props) {
     await axios.post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
     .then((res) => {
       if(res.data == 1 || res.data == 0)
-        setAuto(res.data)
+        setAuto(!auto)
     })
     .catch((err) => {
       alert(err);
@@ -58,7 +58,8 @@ function Home(props) {
   .catch((err) => {
     alert(err);
   })  
- },[])
+ }
+ ,[])
   const devices = [
     { id: 1, name: "Máy bơm", state: data_soil.status },
     { id: 2, name: "Máy phun sương", state: data_temp.status },
