@@ -19,21 +19,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-function createData(
-  name,
-  value,
-) {
-  return { name, value};
-}
 function TempPage(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [valueStart, setValueStart] = useState(new Date());
   const [valueEnd, setValueEnd] = useState(new Date());
-  const rows = [
-    createData('Max value', 200),
-    createData('Min value', 130),
-    createData('Average value', 150),
-  ];
+  const [maxValue,setmaxValue]=useState("")
+  const [minValue,setminValue]=useState("")
+  const [avgValue,setavgValue]=useState("")
+  const [rows,setRows]=useState([
+    {name:'Max value',value:0},
+    {name:'Min value',value:0},
+    {name:'Average value',value:0},
+  ])
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -51,7 +48,7 @@ function TempPage(props) {
                 nrOfLevels={3}
                 arcWidth={0.2}
                 animate={false}
-                percent={0.8}
+                percent={avgValue/100}
                 formatTextValue={(value) => value + "°C"}
                 textColor="#000"
               />
@@ -70,7 +67,14 @@ function TempPage(props) {
                       axios
                     .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
                     .then((res) => {
-                      console.log(res);
+                      setmaxValue(res.data.max);
+                      setminValue(res.data.min);
+                      setavgValue(res.data.avg);
+                      setRows([
+                        {name:'Max value',value:res.data.max},
+                        {name:'Min value',value:res.data.min},
+                        {name:'Average value',value:res.data.avg},
+                      ])
                     })
                     .catch((err) => {
                       alert(err);
@@ -89,7 +93,14 @@ function TempPage(props) {
                       axios
                     .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
                     .then((res) => {
-                      console.log(res);
+                      setmaxValue(res.data.max);
+                      setminValue(res.data.min);
+                      setavgValue(res.data.avg);
+                      setRows([
+                        {name:'Max value',value:res.data.max},
+                        {name:'Min value',value:res.data.min},
+                        {name:'Average value',value:res.data.avg},
+                      ])
                     })
                     .catch((err) => {
                       alert(err);

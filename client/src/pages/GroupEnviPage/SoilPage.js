@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"
 import {
   Footer,
   Header,
@@ -28,11 +29,14 @@ function SoilPage(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [valueStart, setValueStart] = useState(new Date());
   const [valueEnd, setValueEnd] = useState(new Date());
-  const rows = [
-    createData('Max value', 200),
-    createData('Min value', 130),
-    createData('Average value', 150),
-  ];
+  const [maxValue,setmaxValue]=useState("")
+  const [minValue,setminValue]=useState("")
+  const [avgValue,setavgValue]=useState("")
+  const [rows,setRows]=useState([
+    {name:'Max value',value:0},
+    {name:'Min value',value:0},
+    {name:'Average value',value:0},
+  ])
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -50,15 +54,14 @@ function SoilPage(props) {
                 nrOfLevels={3}
                 arcWidth={0.2}
                 animate={false}
-                percent={0.8}
-                formatTextValue={(value) => value + "°C"}
+                percent={avgValue/100}
+                formatTextValue={(value) => value + "%"}
                 textColor="#000"
               />
               <p className="font-bold py-2" style={{marginLeft:"70px"}}>Biểu đồ Gauge cho giá trị trung bình</p>
               </div>              
               <div style={{paddingLeft:"15px",height:"200px"}}>
                 <p className="font-bold py-2" style={{marginBottom:"15px"}}>Thời gian bật tắt dữ liệu</p>
-                {/* <Datepicker /> */}
                 <div style={{marginBottom:"15px"}}>
                 <LocalizationProvider dateAdapter={AdapterDateFns} >
                   <DateTimePicker 
@@ -67,6 +70,21 @@ function SoilPage(props) {
                     value={valueStart}
                     onChange={(newValue) => {
                       setValueStart(newValue);
+                      axios
+                    .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
+                    .then((res) => {
+                      setmaxValue(res.data.max);
+                      setminValue(res.data.min);
+                      setavgValue(res.data.avg);
+                      setRows([
+                        {name:'Max value',value:res.data.max},
+                        {name:'Min value',value:res.data.min},
+                        {name:'Average value',value:res.data.avg},
+                      ])
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    })
                     }}
                   />
                 </LocalizationProvider>
@@ -78,6 +96,21 @@ function SoilPage(props) {
                     value={valueEnd}
                     onChange={(newValue) => {
                       setValueEnd(newValue);
+                      axios
+                    .post('http://127.0.0.1:5000/api/data', {name:"temp_sensor",start:valueStart,end:valueEnd}, {headers: {'Content-Type': 'application/json',},})
+                    .then((res) => {
+                      setmaxValue(res.data.max);
+                      setminValue(res.data.min);
+                      setavgValue(res.data.avg);
+                      setRows([
+                        {name:'Max value',value:res.data.max},
+                        {name:'Min value',value:res.data.min},
+                        {name:'Average value',value:res.data.avg},
+                      ])
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    })
                     }}
                   />
                 </LocalizationProvider>
@@ -107,7 +140,7 @@ function SoilPage(props) {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+              </TableContainer>
     <p className="font-bold py-2" style={{marginLeft:"70px"}}> Bảng thống kê cho giá trị của sensor</p>
               </div>
             </div>
