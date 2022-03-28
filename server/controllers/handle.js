@@ -22,7 +22,7 @@ exports.setHandle = async (req,res) =>{
             url: `https://io.adafruit.com/api/v2/Tien9258/feeds/bbc-handle-button/data`,
             headers: {
                 'content-type': 'application/json',
-                'X-AIO-Key':'aio_RBSR03QkOl6wy8QGrgE5Qr5FiS2q'
+                'X-AIO-Key':'aio_rrXy75l52a7RgpyZyuCopmQ6G7iZ'
             }, 
             data:{
                 value: req.body.status==true?'1':'0'
