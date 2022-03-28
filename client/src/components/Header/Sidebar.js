@@ -103,7 +103,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               to="/sound"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              <img src="https://cdn-icons.flaticon.com/png/512/5445/premium/5445172.png?token=exp=1648204147~hmac=d7b0d6c9986c32aae2dce70b757a1cd8" width="30px"/>
+              <img src="https://cdn-icons.flaticon.com/png/512/5445/premium/5445172.png?token=exp=1648462284~hmac=eb3c42684bc24ee1533a629b1a6a4428" width="30px"/>
               <span class="flex-1 ml-3 whitespace-nowrap">
                 Cường độ âm thanh
               </span>
@@ -114,7 +114,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               to="/light"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              <img src="https://cdn-icons.flaticon.com/png/512/4515/premium/4515797.png?token=exp=1648204277~hmac=12626b0a779092609b94e7b0fe4960e6" width="30px"/>
+              <img src="https://cdn-icons.flaticon.com/png/512/4515/premium/4515797.png?token=exp=1648462367~hmac=ef308a256d1d749bc15b8eebbad8316b" width="30px"/>
               <span class="flex-1 ml-3 whitespace-nowrap">
                 Cường độ ánh sáng
               </span>

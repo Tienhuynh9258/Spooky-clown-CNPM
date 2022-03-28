@@ -20,13 +20,17 @@ function Home(props) {
   const [data_temp,set_Temp]=useState("");
   const [data_sound,set_Sound]=useState("");
   const [data_light,set_Light]=useState("");
+  //
   const editSoil=useRef()
   const editTemp=useRef()
   const editSound=useRef()
   const edtiLight=useRef()
   const [auto, setAuto] = useState(false);
-  
-  // const [state, setState] = useState(true);
+  //
+  const [soilStatus,setSoilStatus]=useState("")
+  const [tempStatus,setTempStatus]=useState("")
+  const [soundStatus,setSoundStatus]=useState("")
+  const [lightStatus,setLightStatus]=useState("")
   const controlhandle = async () => {
     await axios.post('http://127.0.0.1:5000/api/handle/set', {status:!auto}, {headers: {'Content-Type': 'application/json',},})
     .then((res) => {
@@ -45,6 +49,7 @@ function Home(props) {
     set_Temp(res.data[1]);
     set_Sound(res.data[2]);
     set_Light(res.data[3]);
+    setSoilStatus(res.data[0].status);setTempStatus(res.data[1].status);setSoundStatus(res.data[2].status);setLightStatus(res.data[3].status)
   })
   .catch((err) => {
     alert(err);
@@ -57,7 +62,7 @@ function Home(props) {
   })
   .catch((err) => {
     alert(err);
-  })  
+  }) ;
  }
  ,[])
   const devices = [
@@ -192,11 +197,11 @@ function Home(props) {
                         {item.name}
                       </td>
                       <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                        {item.state === "on" ? (
-                          "Đang bật"
-                        ) : (
-                          <p class="text-red-500">Đang tắt</p>
-                        )}
+                        {item.id==1?(soilStatus === "on"?("Đang bật") : (<p class="text-red-500">Đang tắt</p>)):
+                        (item.id==2?(tempStatus === "on"?("Đang bật") : (<p class="text-red-500">Đang tắt</p>)):
+                        (item.id==3?(soundStatus === "on"?("Đang bật") : (<p class="text-red-500">Đang tắt</p>)):
+                        (lightStatus === "on"?("Đang bật") : (<p class="text-red-500">Đang tắt</p>))))
+                        }
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {auto === false ? (
@@ -213,33 +218,105 @@ function Home(props) {
                                 className="cursor-pointer h-10 w-20 rounded-full appearance-none bg-red-500 bg-opacity-4 border-2 border-gray-500 checked:bg-neon transiton duration-200 relative"
                                 style={{backgroundColor:item.state==="on"?"#00f451":"red"}}
                                 onClick={(e) => {
-                                  if (item.state === "on") {
-                                    item.state = "off";
-                                    e.target.style.backgroundColor="red"
+                                  if (item.id==1){
+                                    if(soilStatus=="on"){
+                                      setSoilStatus("off")
+                                      e.target.style.backgroundColor="red"
                                     axios
-                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:item.id==1?"soil-moisture-sensor.bbc-button":item.id==2?"temp-sensor.bbc-button":item.id==3?"sound-sensor.bbc-button":"light-sensor.bbc-button",value:item.id==1?"0":item.id==2?"2":item.id==3?"4":"6"}, {headers: {'Content-Type': 'application/json',},})
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"soil-moisture-sensor.bbc-button",value:"0"}, {headers: {'Content-Type': 'application/json',},})
                                   .then((res) => {
-                                    console.log(res)
-                                    // setAuto(!auto)
                                   })
                                   .catch((err) => {
                                     alert(err);
                                   })
-                                  } else {
-                                    item.state = "on";
-                                    e.target.style.backgroundColor="#00f451"
+                                    }
+                                    else{
+                                      setSoilStatus("on")
+                                      e.target.style.backgroundColor="#00f451"
+                                      axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"soil-moisture-sensor.bbc-button",value:"1"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                  }
+                                  else if (item.id==2){
+                                    if(tempStatus=="on"){
+                                      setTempStatus("off")
+                                      e.target.style.backgroundColor="red"
                                     axios
-                                    .post('http://127.0.0.1:5000/api/device/setStatus', {name:item.id==1?"soil-moisture-sensor.bbc-button":item.id==2?"temp-sensor.bbc-button":item.id==3?"sound-sensor.bbc-button":"light-sensor.bbc-button",value:item.id==1?"1":item.id==2?"3":item.id==3?"5":"7"}, {headers: {'Content-Type': 'application/json',},})
-                                    .then((res) => {
-                                      // console.log(res.data[0].status)
-                                      // setAuto(!auto)
-                                    })
-                                    .catch((err) => {
-                                      alert(err);
-                                    })
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"temp-sensor.bbc-button",value:"2"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                    else{
+                                      setTempStatus("on")
+                                      e.target.style.backgroundColor="#00f451"
+                                      axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"temp-sensor.bbc-button",value:"3"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                  }
+                                  else if (item.id==3){
+                                    if(soundStatus=="on"){
+                                      setSoundStatus("off")
+                                      e.target.style.backgroundColor="red"
+                                    axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"sound-sensor.bbc-button",value:"4"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                    else{
+                                      setSoundStatus("on")
+                                      e.target.style.backgroundColor="#00f451"
+                                      axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"sound-sensor.bbc-button",value:"5"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                  }
+                                  else if (item.id==4){
+                                    if(lightStatus=="on"){
+                                      setLightStatus("off")
+                                      e.target.style.backgroundColor="red"
+                                    axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"light-sensor.bbc-button",value:"6"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
+                                    else{
+                                      setLightStatus("on")
+                                      e.target.style.backgroundColor="#00f451"
+                                      axios
+                                  .post('http://127.0.0.1:5000/api/device/setStatus', {name:"light-sensor.bbc-button",value:"7"}, {headers: {'Content-Type': 'application/json',},})
+                                  .then((res) => {
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  })
+                                    }
                                   }
 
-                                  // setState(!state);
+                                  
+
                                 }}
                               />
                             </label>
