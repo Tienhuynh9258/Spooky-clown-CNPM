@@ -47,8 +47,16 @@ html::-webkit-scrollbar-thumb {
 }
 #toggle-switch::after {
   content: "";
-  @apply h-9 w-9 rounded-full bg-white absolute left-0 top-0 transform scale-110 transition duration-200;
+  @apply h-9 w-9 rounded-full bg-white absolute left-0  top-0 transform scale-110 transition duration-200;
 }
+#toggle::after {
+  content: "";
+  @apply h-9 w-9 rounded-full bg-white absolute right-0  top-0 transform scale-110 transition duration-200;
+}
+#toggle:checked::after {
+  @apply transform scale-110 -translate-x-10;
+}
+
 #toggle-switch:checked::after {
   @apply transform scale-110 translate-x-10;
 }
