@@ -25,7 +25,7 @@ Chart.register(
   Tooltip
 );
 
-function RealtimeChart({ data, width, height }) {
+function RealtimeChart({ unit, data, width, height }) {
   const canvas = useRef(null);
   const chartValue = useRef(null);
   const chartDeviation = useRef(null);
@@ -43,13 +43,15 @@ function RealtimeChart({ data, width, height }) {
         scales: {
           y: {
             grid: {
-              drawBorder: false,
+              drawBorder: true,
             },
-            suggestedMin: 30,
-            suggestedMax: 80,
+            suggestedMin: 0,
+            suggestedMax: 100,
             ticks: {
-              maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              maxTicksLimit: 10,
+              callback: (value) => {
+                return `${value} ${unit}`;
+              },
             },
           },
           x: {
@@ -124,7 +126,7 @@ function RealtimeChart({ data, width, height }) {
       <div className="px-5 py-3">
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2 tabular-nums">
-            $<span ref={chartValue}>57.81</span>
+            <span ref={chartValue}>57.81</span> {unit}
           </div>
           <div
             ref={chartDeviation}
