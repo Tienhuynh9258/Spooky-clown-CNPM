@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Footer, Header, Sidebar, Temperature } from "../../components";
+import { Footer, Header, Sidebar, Enviroment } from "../../components";
 import GaugeChart from "react-gauge-chart";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -74,13 +74,14 @@ function TempPage(props) {
                             { headers: { "Content-Type": "application/json" } }
                           )
                           .then((res) => {
+                            
                             setmaxValue(res.data.max);
                             setminValue(res.data.min);
                             setavgValue(res.data.avg);
                             setRows([
                               { name: "Max value", value: res.data.max },
                               { name: "Min value", value: res.data.min },
-                              { name: "Average value", value: res.data.avg },
+                              { name: "Average value", value: Math.round(res.data.avg * 100) / 100 },
                             ]);
                           })
                           .catch((err) => {
@@ -108,13 +109,14 @@ function TempPage(props) {
                           { headers: { "Content-Type": "application/json" } }
                         )
                         .then((res) => {
+                          
                           setmaxValue(res.data.max);
                           setminValue(res.data.min);
                           setavgValue(res.data.avg);
                           setRows([
                             { name: "Max value", value: res.data.max },
                             { name: "Min value", value: res.data.min },
-                            { name: "Average value", value: res.data.avg },
+                            { name: "Average value", value: Math.round(res.data.avg * 100) / 100  },
                           ]);
                         })
                         .catch((err) => {
@@ -166,7 +168,7 @@ function TempPage(props) {
               </div>
             </div>
             <div className="my-10"></div>
-            <Temperature unit="°C" />
+            <Enviroment unit="°C" />
           </div>
         </main>
         <Footer />
