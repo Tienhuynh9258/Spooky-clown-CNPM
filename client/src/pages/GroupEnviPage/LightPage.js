@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Footer, Header, Sidebar, Temperature } from "../../components";
+import { Footer, Header, Sidebar, Enviroment } from "../../components";
 import GaugeChart from "react-gauge-chart";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -24,6 +24,7 @@ function LightPage(props) {
   const [maxValue, setmaxValue] = useState("");
   const [minValue, setminValue] = useState("");
   const [avgValue, setavgValue] = useState("");
+  
   const [rows, setRows] = useState([
     { name: "Max value", value: 0 },
     { name: "Min value", value: 0 },
@@ -77,6 +78,7 @@ function LightPage(props) {
                             { headers: { "Content-Type": "application/json" } }
                           )
                           .then((res) => {
+                            
                             setmaxValue(res.data.max);
                             setminValue(res.data.min);
                             setavgValue(res.data.avg);
@@ -169,7 +171,8 @@ function LightPage(props) {
               </div>
             </div>
             <div className="my-10"></div>
-            <Temperature unit="Lux" />
+            <Enviroment unit="Lux"  />
+            
           </div>
         </main>
         <Footer />
