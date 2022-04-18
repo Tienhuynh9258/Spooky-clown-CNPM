@@ -32,7 +32,6 @@ export default function Enviroment({ unit }) {
     return dates;
   };
   useEffect(()=>{
-    console.log(res);
     // setData(generateData())
   },[])
   const [slicedData, setSlicedData] = useState(data.slice(0, range));
