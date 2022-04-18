@@ -171,7 +171,7 @@ function SoundPage(props) {
               </div>
             </div>
             <div className="my-10"></div>
-            <Enviroment unit="DBA" />
+            <Enviroment dataReal={dataReal} unit="DBA" />
           </div>
         </main>
         <Footer />
