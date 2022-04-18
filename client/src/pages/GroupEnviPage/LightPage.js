@@ -24,7 +24,8 @@ function LightPage(props) {
   const [maxValue, setmaxValue] = useState("");
   const [minValue, setminValue] = useState("");
   const [avgValue, setavgValue] = useState("");
-  
+  const [dataReal, setDataReal] = useState([]);
+  const [timeReal, setTimeReal] = useState([]);
   const [rows, setRows] = useState([
     { name: "Max value", value: 0 },
     { name: "Min value", value: 0 },
@@ -78,7 +79,16 @@ function LightPage(props) {
                             { headers: { "Content-Type": "application/json" } }
                           )
                           .then((res) => {
-                            
+                            const data = [];
+                            const time = [];
+                            res.data.data.map((item, index) => {
+                              data.push(parseInt(item.val));
+                              // time.push(item.time);
+                            });
+                            setDataReal(data);
+                            console.log(dataReal);
+                            // setTimeReal(time);
+                            // console.log(timeReal);
                             setmaxValue(res.data.max);
                             setminValue(res.data.min);
                             setavgValue(res.data.avg);
@@ -171,8 +181,7 @@ function LightPage(props) {
               </div>
             </div>
             <div className="my-10"></div>
-            <Enviroment unit="Lux"  />
-            
+            <Enviroment dataReal={dataReal} unit="Lux" />
           </div>
         </main>
         <Footer />

@@ -5,7 +5,7 @@ import RealtimeChart from "../../charts/realtimeChart";
 // Import utilities
 import { tailwindConfig, hexToRGB } from "../../utils/Utils";
 
-export default function Enviroment({ unit }) {
+export default function Enviroment({ dataReal, unit }) {
   // IMPORTANT:
   // Code below is for demo purpose only, and it's not covered by support.
   // If you need to replace dummy data with real data,
@@ -14,15 +14,24 @@ export default function Enviroment({ unit }) {
   // Fake real-time data
   const [counter, setCounter] = useState(0);
   const [increment, setIncrement] = useState(0);
-  const [range, setRange] = useState(35);
-  const [data,setData]=useState([])//nhớ sửa chuyển thành redux-toolkit
-  const generateData = () => {
-    const data = [];
-    // res.forEach((ele) => {
-    //   data.push(ele.val);
-    // });
-    return data;
-  };
+  const [range, setRange] = useState(60);
+
+  // Dummy data to be looped
+
+  let data = [
+    57.81, 57.75, 55.48, 54.28, 53.14, 52.25, 51.04, 52.49, 55.49, 56.87, 53.73,
+    56.42, 58.06, 55.62, 58.16, 55.22, 58.67, 60.18, 61.31, 63.25, 65.91, 64.44,
+    65.97, 62.27, 60.96, 59.34, 55.07, 59.85, 53.79, 51.92, 50.95, 49.65, 48.09,
+    49.81, 47.85, 49.52, 50.21, 52.22, 54.42, 53.42, 50.91, 58.52, 53.37, 57.58,
+    59.09, 59.36, 58.71, 59.42, 55.93, 57.71, 50.62, 56.28, 57.37, 53.08, 55.94,
+    55.82, 53.94, 52.65, 50.25,
+  ];
+  // let data = dataReal;
+  // if (dataReal == [] || dataReal != null) {
+  //   data = dataReal;
+  // }
+  // const [slicedData, setSlicedData] = useState(data.slice(0, range));
+  // Generate fake dates from now to back in time
   const generateDates = () => {
     const now = new Date();
     const dates = [];
@@ -70,7 +79,7 @@ export default function Enviroment({ unit }) {
     datasets: [
       // Indigo line
       {
-        data: slicedData,
+        data: dataReal.slice(0, 50),
         fill: true,
         backgroundColor: `rgba(${hexToRGB(
           tailwindConfig().theme.colors.blue[500]

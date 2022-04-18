@@ -316,6 +316,7 @@ function Home(props) {
                               <input
                                 type="checkbox"
                                 id="toggle-switch"
+                                checked={item.state === "on"}
                                 className="cursor-pointer h-10 w-20 rounded-full appearance-none bg-red-500 bg-opacity-4 border-2 border-gray-500 checked:bg-neon transiton duration-200 relative "
                                 style={{
                                   backgroundColor:

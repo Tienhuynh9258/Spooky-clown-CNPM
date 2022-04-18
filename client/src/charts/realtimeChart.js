@@ -26,6 +26,7 @@ Chart.register(
 );
 
 function RealtimeChart({ unit, data, width, height }) {
+  console.log("data chart", data);
   const canvas = useRef(null);
   const chartValue = useRef(null);
   const chartDeviation = useRef(null);
@@ -98,7 +99,7 @@ function RealtimeChart({ unit, data, width, height }) {
     });
     return () => chart.destroy();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, unit]);
 
   // Update header values
   useEffect(() => {
@@ -119,7 +120,7 @@ function RealtimeChart({ unit, data, width, height }) {
     chartDeviation.current.innerHTML = `${diff > 0 ? "+" : ""}${diff.toFixed(
       2
     )}%`;
-  }, [data]);
+  }, [data, unit]);
 
   return (
     <React.Fragment>
