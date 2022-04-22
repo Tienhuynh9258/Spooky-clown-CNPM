@@ -97,7 +97,7 @@ function SoundPage(props) {
                             setRows([
                               { name: "Max value", value: res.data.max },
                               { name: "Min value", value: res.data.min },
-                              { name: "Average value", value: res.data.avg },
+                              { name: "Average value", value: Math.round(res.data.avg * 100) / 100 },
                             ]);
                           })
                           .catch((err) => {
