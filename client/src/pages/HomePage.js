@@ -7,19 +7,24 @@ import {
   Temperature,
   Datepicker,
 } from "../components";
-import { Link} from 'react-router-dom';
-import logo from '../assets/img/logo.png'
+import { Link } from "react-router-dom";
+import logo from "../assets/img/logo.png";
 function HomePage(props) {
+  const [toggle , setToggle ] = useState(false)
+  const toggleClass = ' transform translate-x-6';
   return (
     <>
       <body
         class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover "
         style={{
           backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://assets-news.housing.com/news/wp-content/uploads/2021/03/26204019/What-is-smart-gardening-FB-1200x700-compressed.jpg')`,
-          opacity:0.75
+          opacity: 0.75,
         }}
       >
-        <header className="p-3 dark:text-coolGray-100 bg-white" style={{padding: '0px 1.5rem'}}>
+        <header
+          className="p-3 dark:text-coolGray-100 bg-white"
+          style={{ padding: "0px 1.5rem" }}
+        >
           <div className="container flex justify-between h-16 mx-auto">
             <a
               rel="noopener noreferrer"
@@ -57,13 +62,18 @@ function HomePage(props) {
                   News
                 </a>
               </li>
-              
             </ul>
             <div className="items-center flex-shrink-0 hidden lg:flex">
-            <Link to="/login"><button className="self-center font-semibold px-8 py-3 rounded">Sign in</button></Link>
-            <Link to="/register"><button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900">
-                Sign up
-              </button></Link>
+              <Link to="/login">
+                <button className="self-center font-semibold px-8 py-3 rounded">
+                  Sign in
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900">
+                  Sign up
+                </button>
+              </Link>
             </div>
             <button className="p-4 lg:hidden">
               <svg
@@ -119,13 +129,21 @@ function HomePage(props) {
                 Your Location - BK University
               </p>
               <p class="pt-8 text-sm">
-                This is the web that allowing users could watch and adjust the IOT devices
+                This is the web that allowing users could watch and adjust the
+                IOT devices
               </p>
 
               <div class="pt-12 pb-8">
                 <button class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
                   Get In Touch
                 </button>
+              </div>
+              <div className="md:w-14 md:h-7 w-12 h-6 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer"
+              onClick={() => {
+                setToggle(!toggle);
+              }}>
+                {/* Switch */}
+                <div className={"bg-white md:w-6 md:h-6 h-5 w-5 rounded-full shadow-md transform duration-300 ease-in-out" + (toggle ? null : toggleClass)}></div>
               </div>
 
               <div class="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-between">
