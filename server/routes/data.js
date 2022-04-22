@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getData } = require('../controllers/data');
+const Data = require('../controllers/data');
 
-router.post('/', getData);
+router.post('/', Data.Get);
 module.exports = router;
 
