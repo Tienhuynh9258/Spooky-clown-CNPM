@@ -73,7 +73,7 @@ function SoilPage(props) {
                           .post(
                             "http://127.0.0.1:5000/api/data",
                             {
-                              name: "temp_sensor",
+                              name: "soil_sensor",
                               start: valueStart,
                               end: valueEnd,
                             },
@@ -118,7 +118,7 @@ function SoilPage(props) {
                         .post(
                           "http://127.0.0.1:5000/api/data",
                           {
-                            name: "temp_sensor",
+                            name: "soil_sensor",
                             start: valueStart,
                             end: valueEnd,
                           },
