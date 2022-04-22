@@ -3,25 +3,27 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { check } = require('express-validator');
 
-const { getAuthUser, loginUser,checkLogin ,uploadAvatar} = require('../controllers/auth');
+const Auth = require('../controllers/auth');
 
-// @route     GET api/auth
-// @desc      Get auth user
-// @access    Private
-router.get('/', auth, getAuthUser);
-router.post('/checkLogin',   [check('username', 'Username is required').not().isEmpty(), check('password', 'Password is required').exists()],
- checkLogin);
-// @route     POST api/auth
-// @desc      Authenticate user & get token
-// @access    Public
+router.get(
+  '/', 
+  auth, 
+  Auth.Get);
+
+router.post(
+  '/checkLogin',   
+  [check('username', 'Username is required').not().isEmpty(), check('password', 'Password is required').exists()],
+  Auth.Check);
+
 router.post(
   '/',
   [check('username', 'Username is required').not().isEmpty(), check('password', 'Password is required').exists()],
-  loginUser
+  Auth.Login
 );
+
 router.post(
   '/upload',
   [check('username', 'Username is required').not().isEmpty()],
-  uploadAvatar
+  Auth.Upload
 );
 module.exports = router;

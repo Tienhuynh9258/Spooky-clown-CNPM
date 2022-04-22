@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getHandle } = require('../controllers/handle');
-const { setHandle } = require('../controllers/handle');
+const Handle = require('../controllers/handle');
 //const auth = require('../middleware/auth');
 
-router.post('/', getHandle);
-router.post('/set', setHandle);
+router.post('/', Handle.Get);
+router.post('/set', Handle.Set);
 module.exports = router;
 
