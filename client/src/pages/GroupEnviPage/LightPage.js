@@ -26,11 +26,14 @@ function LightPage(props) {
   const [avgValue, setavgValue] = useState("");
   const [dataReal, setDataReal] = useState([]);
   const [timeReal, setTimeReal] = useState([]);
+  
   const [rows, setRows] = useState([
     { name: "Max value", value: 0 },
     { name: "Min value", value: 0 },
     { name: "Average value", value: 0 },
   ]);
+  console.log(valueStart)
+  console.log(maxValue,minValue)
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -79,6 +82,7 @@ function LightPage(props) {
                             { headers: { "Content-Type": "application/json" } }
                           )
                           .then((res) => {
+                            console.log(res)
                             const data = [];
                             const time = [];
                             res.data.data.map((item, index) => {
@@ -95,7 +99,7 @@ function LightPage(props) {
                             setRows([
                               { name: "Max value", value: res.data.max },
                               { name: "Min value", value: res.data.min },
-                              { name: "Average value", value: res.data.avg },
+                              { name: "Average value", value: Math.round(res.data.avg * 100) / 100 },
                             ]);
                           })
                           .catch((err) => {
@@ -123,6 +127,16 @@ function LightPage(props) {
                           { headers: { "Content-Type": "application/json" } }
                         )
                         .then((res) => {
+                          const data = [];
+                            const time = [];
+                            res.data.data.map((item, index) => {
+                              data.push(parseInt(item.val));
+                              // time.push(item.time);
+                            });
+                            setDataReal(data);
+                            console.log(dataReal);
+                            // setTimeReal(time);
+                            // console.log(timeReal);
                           setmaxValue(res.data.max);
                           setminValue(res.data.min);
                           setavgValue(res.data.avg);
@@ -181,7 +195,8 @@ function LightPage(props) {
               </div>
             </div>
             <div className="my-10"></div>
-            <Enviroment dataReal={dataReal} unit="Lux" />
+            <Enviroment dataReal={dataReal} unit="Lux"  />
+            
           </div>
         </main>
         <Footer />

@@ -103,7 +103,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               to="/sound"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              <img src="https://cdn-icons.flaticon.com/png/512/2778/premium/2778557.png?token=exp=1649176382~hmac=6bc5b95507bcea3bcf8490d30e499b48" width="30px"/>
+              <img src="https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/344/external-sound-music-icongeek26-outline-colour-icongeek26.png" width="30px"/>
               <span class="flex-1 ml-3 whitespace-nowrap">
                 Cường độ âm thanh
               </span>
@@ -114,7 +114,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               to="/light"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              <img src="https://cdn-icons.flaticon.com/png/512/5829/premium/5829882.png?token=exp=1649176430~hmac=d28f37dce49f61f819f65b6ff46e4ecc" width="30px"/>
+              <img src="https://img.icons8.com/neon/344/experimental-sun-neon.png" width="30px"/>
               <span class="flex-1 ml-3 whitespace-nowrap">
                 Cường độ ánh sáng
               </span>

@@ -5,13 +5,7 @@ import RealtimeChart from "../../charts/realtimeChart";
 // Import utilities
 import { tailwindConfig, hexToRGB } from "../../utils/Utils";
 
-export default function Enviroment({ dataReal, unit }) {
-  // IMPORTANT:
-  // Code below is for demo purpose only, and it's not covered by support.
-  // If you need to replace dummy data with real data,
-  // refer to Chart.js documentation: https://www.chartjs.org/docs/latest
-  
-  // Fake real-time data
+export default function Enviroment({dataReal, unit }) {
   const [counter, setCounter] = useState(0);
   const [increment, setIncrement] = useState(0);
   const [range, setRange] = useState(60);
@@ -30,24 +24,21 @@ export default function Enviroment({ dataReal, unit }) {
   // if (dataReal == [] || dataReal != null) {
   //   data = dataReal;
   // }
-  // const [slicedData, setSlicedData] = useState(data.slice(0, range));
+  const [slicedData, setSlicedData] = useState(data.slice(0, range));
   // Generate fake dates from now to back in time
   const generateDates = () => {
     const now = new Date();
     const dates = [];
-    // JSON.parse(res).forEach((ele) => {
-    //   dates.push(new Date(now - 2000 - ele.time * 2000));
-    // });
+    data.forEach((v, i) => {
+      dates.push(new Date(now - 2000 - i * 2000));
+    });
     return dates;
   };
-  useEffect(()=>{
-    // setData(generateData())
-  },[])
-  const [slicedData, setSlicedData] = useState(data.slice(0, range));
-  
+
   const [slicedLabels, setSlicedLabels] = useState(
     generateDates().slice(0, range).reverse()
   );
+
   // Fake update every 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -96,13 +87,25 @@ export default function Enviroment({ dataReal, unit }) {
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
-      
+      <header className="px-5 py-4 border-b border-slate-100 flex items-center">
+        <h2 className="font-semibold text-slate-800">Real Time Value</h2>
+        <Info className="ml-2" containerClassName="min-w-44">
+          <div className="text-sm text-center">
+            Built with{" "}
+            <a
+              className="underline"
+              href="https://www.chartjs.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Chart.js
+            </a>
+          </div>
+        </Info>
+      </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
-      <RealtimeChart unit={unit} data={chartData} width={595} height={250} />
-      <header className="px-5 py-4 border-b border-slate-100 flex items-center">
-        <h2 className="font-semibold text-slate-800" style={{margin:"auto"}}>{unit=='%'?'Đồ thị biểu diễn độ ẩm': (unit=='°C'?'Đồ thị biểu diễn nhiệt độ':(unit=='DBA'?'Đồ thị biểu diễn cường độ âm':'Đồ thị biểu diễn cường độ ánh sáng'))}</h2>
-      </header>
+      <RealtimeChart unit={unit} data={chartData} width={595} height={248} />
     </div>
   );
 }
