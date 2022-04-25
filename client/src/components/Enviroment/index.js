@@ -63,7 +63,7 @@ export default function Enviroment({dataReal, unit }) {
     return () => setIncrement(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter]);
-
+  console.log(slicedLabels)
   const chartData = {
     labels: slicedLabels,
     datasets: [

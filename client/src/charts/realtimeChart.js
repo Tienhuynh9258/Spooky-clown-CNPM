@@ -26,7 +26,6 @@ Chart.register(
 );
 
 function RealtimeChart({ unit, data, width, height }) {
-  console.log("data chart", data);
   const canvas = useRef(null);
   const chartValue = useRef(null);
   const chartDeviation = useRef(null);
@@ -72,6 +71,7 @@ function RealtimeChart({ unit, data, width, height }) {
             ticks: {
               autoSkipPadding: 48,
               maxRotation: 0,
+              display:false
             },
           },
         },
