@@ -290,24 +290,24 @@ function Home(props) {
                       </td>
                       <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
                         {item.id == 1 ? (
-                          soilStatus === "on" ? (
+                          item.state === "on" ? (
                             "Đang bật"
                           ) : (
                             <p class="text-red-500">Đang tắt</p>
                           )
                         ) : item.id == 2 ? (
-                          tempStatus === "on" ? (
+                          item.state === "on" ? (
                             "Đang bật"
                           ) : (
                             <p class="text-red-500">Đang tắt</p>
                           )
                         ) : item.id == 3 ? (
-                          soundStatus === "on" ? (
+                          item.state === "on" ? (
                             "Đang bật"
                           ) : (
                             <p class="text-red-500">Đang tắt</p>
                           )
-                        ) : lightStatus === "on" ? (
+                        ) : item.state === "on" ? (
                           "Đang bật"
                         ) : (
                           <p class="text-red-500">Đang tắt</p>
@@ -332,48 +332,35 @@ function Home(props) {
                                 }}
                                 onClick={(e) => {
                                   if (item.id == 1) {
-                                    console.log(item)
                                     if (soilStatus == "on") {
                                       setSoilStatus("off");
-                                      e.target.style.backgroundColor = "red";
                                       dispatch(changeValue("soil-moisture-sensor.bbc-button","0"))
                                     } else {
                                       setSoilStatus("on");
-                                      e.target.style.backgroundColor =
-                                        "#00f451";
                                       dispatch(changeValue("soil-moisture-sensor.bbc-button","1"))
                                     }
                                   } else if (item.id == 2) {
                                     if (tempStatus == "on") {
                                       setTempStatus("off");
-                                      e.target.style.backgroundColor = "red";
                                       dispatch(changeValue("temp-sensor.bbc-button","2"))
                                     } else {
                                       setTempStatus("on");
-                                      e.target.style.backgroundColor =
-                                        "#00f451";
                                       dispatch(changeValue("temp-sensor.bbc-button","3"))
                                     }
                                   } else if (item.id == 3) {
                                     if (soundStatus == "on") {
                                       setSoundStatus("off");
-                                      e.target.style.backgroundColor = "red";
                                       dispatch(changeValue("sound-sensor.bbc-button","4"))
                                     } else {
                                       setSoundStatus("on");
-                                      e.target.style.backgroundColor =
-                                        "#00f451";
                                       dispatch(changeValue("sound-sensor.bbc-button","5"))
                                     }
                                   } else if (item.id == 4) {
                                     if (lightStatus == "on") {
                                       setLightStatus("off");
-                                      e.target.style.backgroundColor = "red";
                                       dispatch(changeValue("light-sensor.bbc-button","6"))
                                     } else {
                                       setLightStatus("on");
-                                      e.target.style.backgroundColor =
-                                        "#00f451";
                                       dispatch(changeValue("light-sensor.bbc-button","7"))
                                     }
                                   }
