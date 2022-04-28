@@ -64,7 +64,7 @@ function Home(props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         set_Soil(res.data[1]);
         set_Temp(res.data[0]);
         set_Sound(res.data[2]);
@@ -289,7 +289,9 @@ function Home(props) {
                         {item.name}
                       </td>
                       <td class="text-sm text-green-500 font-light px-6 py-4 whitespace-nowrap">
-                        {item.id == 1 ? (
+                        {auto==false?
+                        <p class="text-blue-500">Tự động</p>
+                        :(item.id == 1 ? (
                           item.state === "on" ? (
                             "Đang bật"
                           ) : (
@@ -311,7 +313,7 @@ function Home(props) {
                           "Đang bật"
                         ) : (
                           <p class="text-red-500">Đang tắt</p>
-                        )}
+                        ))}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {auto === false ? (
