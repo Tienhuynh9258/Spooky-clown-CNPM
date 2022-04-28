@@ -31,7 +31,6 @@ export const loadUser = createAsyncThunk('auth/loadUser', async () => {
 });
 
 export const registerUser = createAsyncThunk('auth/registerUser', async ({ username, email, password }) => {
-
   const res = await AuthAPI.registerUser({ username, email, password });
 
   // console.log(res.data);
@@ -39,7 +38,6 @@ export const registerUser = createAsyncThunk('auth/registerUser', async ({ usern
 });
 
 export const loginUser = createAsyncThunk('auth/loginUser', async ({ username, password }) => {
-  
   const res = await AuthAPI.loginUser({ username, password });
   // console.log(res.data)
   return res.data;

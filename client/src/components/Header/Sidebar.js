@@ -51,7 +51,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               onFinished={(false,()=>{
                 setTimeout(() => {
                   window.location.reload(false);
-                }, 3000)
+                }, 1000)
                 // dispatch(authActions.changeImage(user.avatar_img)),
                 })}
               />

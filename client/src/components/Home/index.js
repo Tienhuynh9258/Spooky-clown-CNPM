@@ -4,22 +4,22 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import {changeValue} from './../../redux/actions/controlDevice'
-// function changeLevel(name, level) {
-//   setTimeout(() => {
-//     axios
-//       .post(
-//         "http://127.0.0.1:5000/api/device/setLevel",
-//         { name: name, level: level },
-//         { headers: { "Content-Type": "application/json" } }
-//       )
-//       .then((res) => {
-//         console.log("Success change");
-//       })
-//       .catch((err) => {
-//         alert(err);
-//       });
-//   }, 1000);
-// }
+function changeLevel(name, level) {
+  setTimeout(() => {
+    axios
+      .post(
+        "http://127.0.0.1:5000/api/device/setLevel",
+        { name: name, level: level },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => {
+        console.log("Success change");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }, 1000);
+}
 
 function Home(props) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function Home(props) {
   const editSoil = useRef();
   const editTemp = useRef();
   const editSound = useRef();
-  const edtiLight = useRef();
+  const editLight = useRef();
   const [auto, setAuto] = useState(false);
   //
   const [soilStatus, setSoilStatus] = useState("");
@@ -47,6 +47,7 @@ function Home(props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
+        console.log(res.data)
         if (res.data == 1 || res.data == 0) setAuto(!auto);
       })
       .catch((err) => {
@@ -55,7 +56,7 @@ function Home(props) {
   };
 
   useEffect(() => {
-    console.log("useeffect")
+    console.log("useffect")
     axios
       .post(
         "http://127.0.0.1:5000/api/device",
@@ -63,37 +64,38 @@ function Home(props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        set_Soil(res.data[0]);
-        set_Temp(res.data[1]);
+        console.log(res.data)
+        set_Soil(res.data[1]);
+        set_Temp(res.data[0]);
         set_Sound(res.data[2]);
         set_Light(res.data[3]);
-        setSoilStatus(res.data[0].status);
-        setTempStatus(res.data[1].status);
+        setSoilStatus(res.data[1].status);
+        setTempStatus(res.data[0].status);
         setSoundStatus(res.data[2].status);
         setLightStatus(res.data[3].status);
       })
       .catch((err) => {
         alert(err);
       });
-    // axios
-    //   .post(
-    //     "http://127.0.0.1:5000/api/handle",
-    //     {},
-    //     { headers: { "Content-Type": "application/json" } }
-    //   )
-    //   .then((res) => {
-    //     if (res.data[0].status == 0) setAuto(false);
-    //     else setAuto(true);
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    axios
+      .post(
+        "http://127.0.0.1:5000/api/handle",
+        {},
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => {
+        if (res.data[0].status == 0) setAuto(false);
+        else setAuto(true);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }, [dispatch,userInfo]);
   const devices = [
-    { id: 1, name: "Máy bơm", state: data_soil.status },
-    { id: 2, name: "Máy phun sương", state: data_temp.status },
-    { id: 3, name: "Máy quạt ", state: data_sound.status },
-    { id: 4, name: "Bóng đèn", state: data_light.status },
+    { id: 1, name: "Máy bơm",state:data_soil.status},
+    { id: 2, name: "Máy phun sương",state:data_temp.status},
+    { id: 3, name: "Máy quạt ",state:data_sound.status},
+    { id: 4, name: "Bóng đèn",state:data_light.status},
   ];
 
   return (
@@ -125,10 +127,10 @@ function Home(props) {
                 className="font-bold"
                 type="text"
                 value={data_soil.level}
-                style={{ width: "25px" }}
+                style={{ width: "18px" }}
                 onChange={() => {
-                  // changeLevel("soil_sensor", editSoil.current.value);
-                  set_Soil(editSoil.current.value);
+                  changeLevel("soil_sensor", editSoil.current.value);
+                  set_Soil({...data_soil,"level":editSoil.current.value});
                 }}
               />
               %
@@ -152,10 +154,10 @@ function Home(props) {
                 className="font-bold"
                 type="text"
                 value={data_temp.level}
-                style={{ width: "18px" }}
+                style={{ width: "25px" }}
                 onChange={() => {
-                  // changeLevel("temp_sensor", editTemp.current.value);
-                  set_Temp(editTemp.current.value);
+                  changeLevel("temp_sensor", editTemp.current.value);
+                  set_Temp({...data_temp,"level":editTemp.current.value});
                 }}
               />
               °C
@@ -181,8 +183,8 @@ function Home(props) {
                 value={data_sound.level}
                 style={{ width: "18px" }}
                 onChange={() => {
-                  // changeLevel("sound_sensor", editSound.current.value);
-                  set_Sound(editSound.current.value);
+                  changeLevel("sound_sensor", editSound.current.value);
+                  set_Sound({...data_sound,"level":editSound.current.value});
                 }}
               />
               DBA
@@ -202,14 +204,14 @@ function Home(props) {
             <span className="block py-6">ÁNH SÁNG</span>
             <span className="font-bold">
               <input
-                ref={edtiLight}
+                ref={editLight}
                 className="font-bold"
                 type="text"
                 value={data_light.level}
                 style={{ width: "25px" }}
                 onChange={() => {
-                  // changeLevel("light_sensor", edtiLight.current.value);
-                  set_Light(edtiLight.current.value);
+                  changeLevel("light_sensor", editLight.current.value);
+                  set_Light({...data_light,"level":editLight.current.value});
                 }}
               />
               Lux
@@ -334,188 +336,44 @@ function Home(props) {
                                     if (soilStatus == "on") {
                                       setSoilStatus("off");
                                       e.target.style.backgroundColor = "red";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "soil-moisture-sensor.bbc-button",
-                                      //       value: "0",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("soil-moisture-sensor.bbc-button","0"))
                                     } else {
                                       setSoilStatus("on");
                                       e.target.style.backgroundColor =
                                         "#00f451";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "soil-moisture-sensor.bbc-button",
-                                      //       value: "1",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("soil-moisture-sensor.bbc-button","1"))
                                     }
                                   } else if (item.id == 2) {
                                     if (tempStatus == "on") {
                                       setTempStatus("off");
                                       e.target.style.backgroundColor = "red";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "temp-sensor.bbc-button",
-                                      //       value: "2",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("temp-sensor.bbc-button","2"))
                                     } else {
                                       setTempStatus("on");
                                       e.target.style.backgroundColor =
                                         "#00f451";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "temp-sensor.bbc-button",
-                                      //       value: "3",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("temp-sensor.bbc-button","3"))
                                     }
                                   } else if (item.id == 3) {
                                     if (soundStatus == "on") {
                                       setSoundStatus("off");
                                       e.target.style.backgroundColor = "red";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "sound-sensor.bbc-button",
-                                      //       value: "4",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("sound-sensor.bbc-button","4"))
                                     } else {
                                       setSoundStatus("on");
                                       e.target.style.backgroundColor =
                                         "#00f451";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "sound-sensor.bbc-button",
-                                      //       value: "5",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("sound-sensor.bbc-button","5"))
                                     }
                                   } else if (item.id == 4) {
                                     if (lightStatus == "on") {
                                       setLightStatus("off");
                                       e.target.style.backgroundColor = "red";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "light-sensor.bbc-button",
-                                      //       value: "6",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("light-sensor.bbc-button","6"))
                                     } else {
                                       setLightStatus("on");
                                       e.target.style.backgroundColor =
                                         "#00f451";
-                                      // axios
-                                      //   .post(
-                                      //     "http://127.0.0.1:5000/api/device/setStatus",
-                                      //     {
-                                      //       name: "light-sensor.bbc-button",
-                                      //       value: "7",
-                                      //     },
-                                      //     {
-                                      //       headers: {
-                                      //         "Content-Type":
-                                      //           "application/json",
-                                      //       },
-                                      //     }
-                                      //   )
-                                      //   .then((res) => {})
-                                      //   .catch((err) => {
-                                      //     alert(err);
-                                      //   });
                                       dispatch(changeValue("light-sensor.bbc-button","7"))
                                     }
                                   }

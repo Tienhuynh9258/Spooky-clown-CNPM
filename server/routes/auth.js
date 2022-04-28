@@ -20,7 +20,9 @@ router.post(
   [check('username', 'Username is required').not().isEmpty(), check('password', 'Password is required').exists()],
   Auth.Login
 );
-
+router.post(
+  '/load',Auth.Load
+)
 router.post(
   '/upload',
   [check('username', 'Username is required').not().isEmpty()],
