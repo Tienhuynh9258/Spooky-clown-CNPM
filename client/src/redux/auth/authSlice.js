@@ -68,7 +68,6 @@ export const authSlice = createSlice({
   reducers: {
     logout(state) {
       localStorage.removeItem('token');
-      sessionStorage.removeItem('username');
       console.log('logged out...');
       // state.user = null;
       // state.token = null;
