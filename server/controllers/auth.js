@@ -37,7 +37,22 @@ const Auth = (()=>{
       res.status(500).send('Server Error');
     }
   }
-
+  const loadUser = async (req,res) =>{
+    const { username} = req.body;
+    try{
+     
+      //check exist
+      let user = await User.findOne({ username });
+      if (!user) {
+        return res.json({ userError: 'User do not exist! Please try again.', passError:'' });
+      }
+      return res.json(user);
+    }
+    catch{
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
   const loginUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -96,6 +111,7 @@ const Auth = (()=>{
   return {
     Get: getAuthUser,
     Check: checkLogin,
+    Load:loadUser,
     Login: loginUser,
     Upload: uploadAvatar
   }
