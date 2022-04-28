@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  Footer,
-  Header,
-  Home,
-  Sidebar,
-  Temperature,
-  Datepicker,
-} from "../components";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 function HomePage(props) {

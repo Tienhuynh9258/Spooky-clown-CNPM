@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import ana_avatar from "../../assets/img/avatar_1.png"
 import logo from "../../assets/img/logo.png"
-import SidebarLinkGroup from "./SidebarLinkGroup";
 import {render} from 'react-dom';
 import AvatarUploader from './supAvatar';
 import { useDispatch, useSelector } from 'react-redux';
