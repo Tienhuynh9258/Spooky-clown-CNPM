@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Info from "../../utils/Infor";
-import RealtimeChart from "../../charts/realtimeChart";
+import RealtimeChart from "../charts/realtimeChart";
 
 // Import utilities
 import { tailwindConfig, hexToRGB } from "../../utils/Utils";

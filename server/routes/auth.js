@@ -21,9 +21,6 @@ router.post(
   Auth.Login
 );
 router.post(
-  '/load',Auth.Load
-)
-router.post(
   '/upload',
   [check('username', 'Username is required').not().isEmpty()],
   Auth.Upload
