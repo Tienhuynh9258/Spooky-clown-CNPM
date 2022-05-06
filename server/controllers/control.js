@@ -11,7 +11,7 @@ const Control = (()=>{
                 url: `https://io.adafruit.com/api/v2/Tien9258/feeds/${name}/data`,
                 headers: {
                     'content-type': 'application/json',
-                    'X-AIO-Key':'aio_sEMr10Iggj80Vwy3w2a76lvTBwOI'
+                    'X-AIO-Key':jsons.AIO_KEY
                 }, 
                 data: { 
                     value: req.body.value
